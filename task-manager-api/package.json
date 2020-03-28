@@ -1,10 +1,10 @@
 {
-  "name": "task-manager",
+  "name": "task-manager-api",
   "private": true,
   "version": "0.1.0",
   "description": "A Strapi application",
   "scripts": {
-    "develop": "strapi develop",
+    "dev": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi"
@@ -24,7 +24,8 @@
     "strapi-utils": "3.0.0-beta.19.3"
   },
   "author": {
-    "name": "A Strapi developer"
+    "name": "Bruno Molteni",
+    "email": "brunomolteni90@gmail.com"
   },
   "strapi": {
     "uuid": "754c0628-9436-4218-9eac-dba01ba5ea1c"

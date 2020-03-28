@@ -80,8 +80,8 @@ $RECYCLE.BIN/
 ssl
 .idea
 nbproject
-public/uploads/*
-!public/uploads/.gitkeep
+task-manager-api/public/uploads/*
+!task-manager-api/public/uploads/.gitkeep
 
 ############################
 # Node.js
@@ -92,8 +92,8 @@ lcov.info
 pids
 logs
 results
-node_modules
-.node_history
+*node_modules
+*.node_history
 
 
 ############################
@@ -107,6 +107,12 @@ coverage
 # Strapi
 ############################
 
-exports
-.cache
-build
+task-manager-api/exports
+task-manager-api/.cache
+task-manager-api/build
+
+############################
+# Next.js
+############################
+
+task-manager-frontend/.next
