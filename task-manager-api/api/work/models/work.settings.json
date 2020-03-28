@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "connection": "default",
+  "collectionName": "works",
+  "info": {
+    "name": "Work"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "Task": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "Duration": {
+      "type": "integer",
+      "required": true
+    },
+    "Date": {
+      "type": "date",
+      "required": true
+    }
+  }
+}
