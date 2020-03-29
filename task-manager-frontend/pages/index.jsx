@@ -1,12 +1,14 @@
-export default () => (
-  <main>
-    <h1>Task Manager</h1>
+import LoginForm from "../components/LoginForm";
 
-    <p>Login to start</p>
-    <form>
-      <input type="text" />
-      <input type="password" />
-      <input type="submit" />
-    </form>
-  </main>
-);
+export default () => {
+  return (
+    <main>
+      <h1>Task Manager</h1>
+
+      <p>Login to start</p>
+      <LoginForm />
+
+      <p></p>
+    </main>
+  );
+};

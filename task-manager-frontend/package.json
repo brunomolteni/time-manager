@@ -5,16 +5,20 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@blueprintjs/core": "^3.24.0",
+    "@blueprintjs/datetime": "^3.15.2",
     "next": "^9.3.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "zero": "^1.1.20"
+    "sass": "^1.26.3",
+    "swr": "^0.1.18"
   },
   "devDependencies": {},
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "prestart": "npm i && npm run build"
   },
   "author": {
     "name": "Bruno Molteni",

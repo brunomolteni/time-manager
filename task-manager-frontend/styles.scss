@@ -1,0 +1,18 @@
+@import "~@blueprintjs/core/lib/css/blueprint.css";
+@import "~@blueprintjs/datetime/lib/css/blueprint-datetime.css";
+
+main {
+  width: 60vw;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.padded {
+  padding: 20px;
+}
+
+.flex-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

@@ -91,6 +91,7 @@ lib-cov
 lcov.info
 pids
 logs
+.logs
 results
 *node_modules
 *.node_history
@@ -107,9 +108,9 @@ coverage
 # Strapi
 ############################
 
-task-manager-api/exports
-task-manager-api/.cache
-task-manager-api/build
+task-manager-backend/exports
+task-manager-backend/.cache
+task-manager-backend/build
 
 ############################
 # Next.js

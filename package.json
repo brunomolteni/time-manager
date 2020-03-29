@@ -1,0 +1,24 @@
+{
+  "name": "task-manager",
+  "version": "1.0.0",
+  "description": "This is divided into 2 different apps:",
+  "scripts": {
+    "dev": "npm run flush && pm2 start pm2.config.js && npm run logs",
+    "start": "npm run flush && pm2 start pm2.config.js --env production && npm run logs",
+    "stop": "pm2 delete pm2.config.js",
+    "logs": "pm2 logs --lines 5",
+    "flush": "pm2 flush"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.toptal.com:screening/bruno-molteni.git"
+  },
+  "author": {
+    "name": "Bruno Molteni",
+    "email": "brunomolteni90@gmail.com"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "pm2": "^4.2.3"
+  }
+}
