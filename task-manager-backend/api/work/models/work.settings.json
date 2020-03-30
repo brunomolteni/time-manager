@@ -22,6 +22,11 @@
     "Date": {
       "type": "date",
       "required": true
+    },
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "works"
     }
   }
 }

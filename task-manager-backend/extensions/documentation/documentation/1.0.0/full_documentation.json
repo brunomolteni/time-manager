@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "03/28/2020 9:15:58 PM"
+    "x-generation-date": "03/30/2020 2:14:46 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -2345,6 +2345,52 @@
           },
           "Date": {
             "type": "string"
+          },
+          "user": {
+            "required": [
+              "id",
+              "username",
+              "email",
+              "PreferredWorkingHourPerDay"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "resetPasswordToken": {
+                "type": "string"
+              },
+              "confirmed": {
+                "type": "boolean"
+              },
+              "blocked": {
+                "type": "boolean"
+              },
+              "role": {
+                "type": "string"
+              },
+              "PreferredWorkingHourPerDay": {
+                "type": "integer"
+              },
+              "works": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -2362,6 +2408,9 @@
             "type": "integer"
           },
           "Date": {
+            "type": "string"
+          },
+          "user": {
             "type": "string"
           }
         }
@@ -2459,6 +2508,12 @@
                 },
                 "PreferredWorkingHourPerDay": {
                   "type": "integer"
+                },
+                "works": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -2559,6 +2614,34 @@
           "PreferredWorkingHourPerDay": {
             "type": "integer",
             "default": 8
+          },
+          "works": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "Task",
+                "Duration",
+                "Date"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "Task": {
+                  "type": "string"
+                },
+                "Duration": {
+                  "type": "integer"
+                },
+                "Date": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -2601,6 +2684,12 @@
           "PreferredWorkingHourPerDay": {
             "type": "integer",
             "default": 8
+          },
+          "works": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },

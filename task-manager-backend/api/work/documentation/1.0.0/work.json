@@ -533,6 +533,52 @@
           },
           "Date": {
             "type": "string"
+          },
+          "user": {
+            "required": [
+              "id",
+              "username",
+              "email",
+              "PreferredWorkingHourPerDay"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "resetPasswordToken": {
+                "type": "string"
+              },
+              "confirmed": {
+                "type": "boolean"
+              },
+              "blocked": {
+                "type": "boolean"
+              },
+              "role": {
+                "type": "string"
+              },
+              "PreferredWorkingHourPerDay": {
+                "type": "integer"
+              },
+              "works": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -550,6 +596,9 @@
             "type": "integer"
           },
           "Date": {
+            "type": "string"
+          },
+          "user": {
             "type": "string"
           }
         }

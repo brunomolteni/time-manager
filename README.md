@@ -9,16 +9,22 @@ it is divided into 2 different servers:
 
 PM2 is used to manage both servers both for local development and the live production enviroment.
 
-## Running for Local Development
+## Running the app
+
+Both of these commands should start both servers, the UI on [http://localhost:1337](http://localhost:1337) and the API on [http://localhost:3000](http://localhost:3000)
+
+### Local Development
 
 ```
 npm run dev
 ```
 
-## Running for Production
+### Production Enviroment
 
 ```
 npm start
 ```
 
-Both of these commands should start both servers, the UI on [http://localhost:1337](http://localhost:1337) and the API on [http://localhost:3000](http://localhost:3000)
+## API documentation
+
+You can access the API documentation on [http://localhost:1337/documentation](http://localhost:1337/documentation)

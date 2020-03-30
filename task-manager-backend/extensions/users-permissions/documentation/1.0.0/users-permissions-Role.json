@@ -612,6 +612,12 @@
                 },
                 "PreferredWorkingHourPerDay": {
                   "type": "integer"
+                },
+                "works": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }

@@ -61,6 +61,10 @@
       "unique": false,
       "max": 24,
       "min": 0
+    },
+    "works": {
+      "via": "user",
+      "collection": "work"
     }
   }
 }

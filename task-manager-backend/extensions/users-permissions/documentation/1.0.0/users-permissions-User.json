@@ -1249,6 +1249,34 @@
           "PreferredWorkingHourPerDay": {
             "type": "integer",
             "default": 8
+          },
+          "works": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "Task",
+                "Duration",
+                "Date"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "Task": {
+                  "type": "string"
+                },
+                "Duration": {
+                  "type": "integer"
+                },
+                "Date": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -1291,6 +1319,12 @@
           "PreferredWorkingHourPerDay": {
             "type": "integer",
             "default": 8
+          },
+          "works": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       }

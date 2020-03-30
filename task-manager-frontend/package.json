@@ -5,15 +5,19 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@babel/core": "^7.9.0",
     "@blueprintjs/core": "^3.24.0",
     "@blueprintjs/datetime": "^3.15.2",
+    "@blueprintjs/icons": "^3.14.0",
+    "http-proxy-middleware": "^1.0.3",
     "next": "^9.3.2",
+    "node-fetch": "^2.6.0",
+    "nookies": "^2.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "sass": "^1.26.3",
     "swr": "^0.1.18"
   },
-  "devDependencies": {},
   "scripts": {
     "dev": "next",
     "build": "next build",

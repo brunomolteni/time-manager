@@ -6,8 +6,9 @@
     "dev": "npm run flush && pm2 start pm2.config.js && npm run logs",
     "start": "npm run flush && pm2 start pm2.config.js --env production && npm run logs",
     "stop": "pm2 delete pm2.config.js",
-    "logs": "pm2 logs --lines 5",
-    "flush": "pm2 flush"
+    "logs": "pm2 logs --lines 50",
+    "flush": "pm2 flush",
+    "pm2": "pm2"
   },
   "repository": {
     "type": "git",
