@@ -1,4 +1,3 @@
-const { createProxyMiddleware } = require("http-proxy-middleware");
 import nookies from "nookies";
 import fetch from "node-fetch";
 
