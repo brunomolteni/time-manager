@@ -8,7 +8,7 @@ const acceptOnly200 = res => {
 };
 
 export const get = url => {
-  return fetchFn(url).then(acceptOnly200);
+  return fetchFn(url).then(res => res.json());
 };
 
 export const post = (url, data) => {
@@ -16,5 +16,5 @@ export const post = (url, data) => {
     method: "post",
     body: JSON.stringify(data),
     headers: { "Content-Type": "application/json" }
-  }).then(acceptOnly200);
+  }).then(res => res.json());
 };

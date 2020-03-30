@@ -1,15 +1,46 @@
-import useSWR from "swr";
-import { H1, H2, Spinner } from "@blueprintjs/core";
+import { useState } from "react";
+import { H1, H2, Spinner, Button } from "@blueprintjs/core";
+import useSWR, { mutate } from "swr";
 import nookies from "nookies";
-import { get } from "../util/fetch";
+import { get, post } from "../util/fetch";
 
+import HoursForm from "../components/HoursForm";
 import HoursTable from "../components/HoursTable";
 
 export default ({ user }) => {
-  const { data, error } = useSWR("/api/works", get);
+  const [isFormOpen, setFormOpen] = useState(false);
+  const { data, error } = useSWR("/api/works", get, {
+    dedupingInterval: 10000
+  });
+  const toggleForm = () => setFormOpen(!isFormOpen);
+  const addWork = async ev => {
+    ev.preventDefault();
+
+    const date = new Date(
+      ev.target.querySelector(".add-work-date input").value
+    );
+
+    const body = {
+      Task: ev.target.task.value,
+      Date: date.toISOString(),
+      Duration: +ev.target.duration.value,
+      user: user.id.toString()
+    };
+
+    post("/api/works", body);
+
+    mutate("api/works", data.push(body));
+    toggleForm();
+  };
+
   return (
     <main>
       <H1>Task Manager</H1>
+      <div className="flex-row">
+        <Button onClick={toggleForm}>Add Work</Button>
+        <Button>Filter</Button>
+      </div>
+      <HoursForm isOpen={isFormOpen} onClose={toggleForm} onSubmit={addWork} />
       {data ? <HoursTable rows={data} /> : <Spinner />}
     </main>
   );

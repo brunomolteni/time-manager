@@ -1,8 +1,8 @@
-import { HTMLTable } from "@blueprintjs/core";
+import { HTMLTable, EditableText } from "@blueprintjs/core";
 
 export default ({ rows = [] }) => (
   <main>
-    <HTMLTable bordered condensed interactive striped>
+    <HTMLTable condensed interactive>
       <thead>
         <tr>
           <th>Date</th>
@@ -11,10 +11,16 @@ export default ({ rows = [] }) => (
         </tr>
       </thead>
       <tbody>
-        {rows.map(row => (
+        {rows.map((row, i) => (
           <tr key={row.id}>
-            <td>{row.Date}</td>
-            <td>{row.Task}</td>
+            <td>
+              {i > 0 && row.Date === rows[i - 1].Date
+                ? ""
+                : new Date(row.Date).toLocaleDateString()}
+            </td>
+            <td>
+              <EditableText onConfirm={console.log} defaultValue={row.Task} />
+            </td>
             <td>{row.Duration}</td>
           </tr>
         ))}
