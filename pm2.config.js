@@ -6,6 +6,7 @@ module.exports = {
       script: "npm",
       args: "run dev",
       error_file: "../.logs/api.error.log",
+      out_file: "../.logs/api.out.log",
       ignore_watch: ["node_modules"],
       env: {
         NODE_ENV: "development"
@@ -14,7 +15,6 @@ module.exports = {
         watch: false,
         args: "start",
         NODE_ENV: "production",
-        out_file: "../.logs/api.out.log"
       }
     },
     {
@@ -23,6 +23,7 @@ module.exports = {
       script: "npm",
       args: "run dev",
       error_file: "../.logs/ui.error.log",
+      out_file: "../.logs/ui.out.log",
       ignore_watch: ["node_modules"],
       env: {
         NODE_ENV: "development"
@@ -31,7 +32,6 @@ module.exports = {
         watch: false,
         args: "start",
         NODE_ENV: "production",
-        out_file: "../.logs/ui.out.log"
       }
     }
   ]

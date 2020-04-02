@@ -4,6 +4,8 @@ import fetch from "node-fetch";
 // Proxy all /api/* requests to API server
 
 async function proxyHandler(req, res) {
+  const api = process.env.API_URL || "localhost";
+  const port = process.env.API_PORT || "1337";
   const cookies = nookies.get({ req, res });
   const options = {
     method: req.method,
@@ -22,7 +24,7 @@ async function proxyHandler(req, res) {
   const { endpoint } = req.query;
   let status;
   let result = await fetch(
-    `http://localhost:1337/${endpoint.join("/")}`,
+    `http://${api}:${port}/${endpoint.join("/")}`,
     options
   ).then(res => {
     status = res.status;

@@ -20,18 +20,19 @@ export default ({ user }) => {
       ev.target.querySelector(".add-work-date input").value
     );
 
-    const body = {
+    const newTask = {
       Task: ev.target.task.value,
       Date: date.toISOString(),
       Duration: +ev.target.duration.value,
       user: user.id.toString()
     };
 
-    post("/api/works", body);
+    post("/api/works", newTask);
 
-    mutate("api/works", data.push(body));
+    mutate("api/works", data.push(newTask));
     toggleForm();
   };
+  const logout = () => post("/api/logout");
 
   return (
     <main>
@@ -39,6 +40,7 @@ export default ({ user }) => {
       <div className="flex-row">
         <Button onClick={toggleForm}>Add Work</Button>
         <Button>Filter</Button>
+        <Button onClick={logout}>Logout</Button>
       </div>
       <HoursForm isOpen={isFormOpen} onClose={toggleForm} onSubmit={addWork} />
       {data ? <HoursTable rows={data} /> : <Spinner />}
@@ -49,8 +51,18 @@ export default ({ user }) => {
 export async function getServerSideProps(ctx) {
   let props = {};
   let cookies = nookies.get(ctx);
+  let redirectToLogin = () =>
+    ctx.res.writeHead(302, { Location: "/login" }).end();
 
-  if (!cookies.user) ctx.res.writeHead(302, { Location: "/login" }).end();
+  if (cookies.logout) {
+    nookies.destroy(ctx, "user");
+    nookies.destroy(ctx, "token");
+    nookies.destroy(ctx, "logout");
+    redirectToLogin();
+    return;
+  }
+
+  if (!cookies.user) redirectToLogin();
   else props.user = JSON.parse(cookies.user);
   return { props };
 }

@@ -4,9 +4,9 @@
   "description": "This is divided into 2 different apps:",
   "scripts": {
     "dev": "npm run flush && pm2 start pm2.config.js && npm run logs",
-    "start": "npm run flush && pm2 start pm2.config.js --env production && npm run logs",
-    "stop": "pm2 delete pm2.config.js",
-    "logs": "pm2 logs --lines 50",
+    "start": "pm2 start pm2.config.js --env production && npm run logs",
+    "stop": "pm2 delete pm2.config.js && pm2 flush",
+    "logs": "pm2 logs --lines 20 --merge-logs",
     "flush": "pm2 flush",
     "pm2": "pm2"
   },
