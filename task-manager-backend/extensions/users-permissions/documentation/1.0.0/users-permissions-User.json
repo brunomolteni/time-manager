@@ -1189,7 +1189,8 @@
           "id",
           "username",
           "email",
-          "PreferredWorkingHourPerDay"
+          "PreferredWorkingHourPerDay",
+          "DarkMode"
         ],
         "properties": {
           "id": {
@@ -1277,6 +1278,10 @@
                 }
               }
             }
+          },
+          "DarkMode": {
+            "type": "boolean",
+            "default": false
           }
         }
       },
@@ -1284,7 +1289,8 @@
         "required": [
           "username",
           "email",
-          "PreferredWorkingHourPerDay"
+          "PreferredWorkingHourPerDay",
+          "DarkMode"
         ],
         "properties": {
           "username": {
@@ -1325,6 +1331,10 @@
             "items": {
               "type": "string"
             }
+          },
+          "DarkMode": {
+            "type": "boolean",
+            "default": false
           }
         }
       }

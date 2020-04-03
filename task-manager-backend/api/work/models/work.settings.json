@@ -13,7 +13,7 @@
     "Task": {
       "type": "string",
       "required": true,
-      "unique": true
+      "unique": false
     },
     "Duration": {
       "type": "integer",

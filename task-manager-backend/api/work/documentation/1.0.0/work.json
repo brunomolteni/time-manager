@@ -539,7 +539,8 @@
               "id",
               "username",
               "email",
-              "PreferredWorkingHourPerDay"
+              "PreferredWorkingHourPerDay",
+              "DarkMode"
             ],
             "properties": {
               "id": {
@@ -577,6 +578,9 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "DarkMode": {
+                "type": "boolean"
               }
             }
           }

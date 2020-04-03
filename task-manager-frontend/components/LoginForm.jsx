@@ -1,38 +1,34 @@
-import { ControlGroup, InputGroup, Button, Callout } from "@blueprintjs/core";
+import { ControlGroup, InputGroup, Callout } from "@blueprintjs/core";
+import { ConnectedForm, ConnectedInput } from "./";
 
-export default ({ onSubmit, submitting, error }) => {
-  return (
-    <form onSubmit={onSubmit} method="POST" target="/login">
+export default ({ onSubmit, error }) => (
+  <>
+    <ConnectedForm onSubmit={onSubmit}>
       <ControlGroup vertical={false} fill>
-        <InputGroup
-          large
+        <ConnectedInput
+          component={InputGroup}
+          name="identifier"
           type="text"
-          placeholder="User"
-          name="user"
+          label="User"
           leftIcon="user"
-        />
-        <InputGroup
           large
-          type="password"
-          placeholder="Password"
+          required
+        />
+        <ConnectedInput
+          component={InputGroup}
           name="password"
+          type="password"
+          label="Password"
           leftIcon="key"
-        />
-        <Button
-          type="submit"
-          icon="log-in"
           large
-          loading={submitting}
-          disabled={submitting}
-        >
-          Login
-        </Button>
+          required
+        />
       </ControlGroup>
-      {error && (
-        <Callout title="There was an error" intent={Intent.DANGER}>
-          {error}
-        </Callout>
-      )}
-    </form>
-  );
-};
+    </ConnectedForm>
+    {error && (
+      <Callout title="There was an error" intent={Intent.DANGER}>
+        {error}
+      </Callout>
+    )}
+  </>
+);

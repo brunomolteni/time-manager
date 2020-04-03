@@ -2,6 +2,8 @@ html,
 body {
   height: 100%;
   overflow: hidden;
+  padding: 0;
+  margin: 0;
 }
 
 main {
@@ -9,9 +11,17 @@ main {
   background: linear-gradient(to top, #fff, #fafafa 50%) no-repeat;
   background-size: cover;
   overflow-y: auto;
+  min-height: 100vh;
 
   @media screen and (min-width: 720px) {
     padding: ($pt-navbar-height + $pt-grid-size) 20vw;
+  }
+  &.bp3-dark {
+    background-image: linear-gradient(
+      to bottom,
+      $pt-dark-app-background-color,
+      lighten($pt-dark-app-background-color, 10%) 50%
+    );
   }
 }
 

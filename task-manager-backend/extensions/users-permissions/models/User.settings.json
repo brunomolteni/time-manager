@@ -65,6 +65,11 @@
     "works": {
       "via": "user",
       "collection": "work"
+    },
+    "DarkMode": {
+      "type": "boolean",
+      "default": false,
+      "required": true
     }
   }
 }

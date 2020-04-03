@@ -7,42 +7,46 @@ import {
   NumericInput,
 } from "@blueprintjs/core";
 import { DateInput } from "@blueprintjs/datetime";
+import { ConnectedInput, ConnectedForm } from ".";
 
 const jsDateFormatter = {
   // note that the native implementation of Date functions differs between browsers
-  formatDate: (date) => date.toISOString(),
+  formatDate: (date) => date.toLocaleDateString(),
   parseDate: (str) => new Date(str),
-  placeholder: "M/D/YYYY",
+  placeholder: "D/M/YYYY",
+  showActionsBar: true,
 };
 
-export default ({ isOpen, onClose, onSubmit }) => (
+export default ({ isOpen, onClose, onSubmit, initialValues }) => (
   <Drawer
     isOpen={isOpen}
     isCloseButtonShown
     size="250px"
     title="Add worked hours"
+    icon="add"
     onClose={onClose}
   >
-    <form className="u-padded" onSubmit={onSubmit}>
-      <ControlGroup vertical>
-        <FormGroup label="What did you work on?" labelFor="task">
-          <InputGroup placeholder="killer app" autoFocus name="task" />
-        </FormGroup>
-        <FormGroup label="How many hours?" labelFor="hours">
-          <NumericInput fill placeholder="8" name="duration" />
-        </FormGroup>
-        <FormGroup label="When?" labelFor="date">
-          <DateInput
-            {...jsDateFormatter}
-            fill
-            highlightCurrentDay
-            className="add-work-date"
-          />
-        </FormGroup>
-        <Button large type="submit">
-          Add
-        </Button>
-      </ControlGroup>
-    </form>
+    <ConnectedForm onSubmit={onSubmit} initialValues={initialValues}>
+      <ConnectedInput
+        component={InputGroup}
+        placeholder="Killer app"
+        autoFocus
+        name="Task"
+        label="What did you work on?"
+      />
+      <ConnectedInput
+        component={NumericInput}
+        placeholder="8"
+        name="Duration"
+        label="How many hours?"
+      />
+      <ConnectedInput
+        component={DateInput}
+        name="Date"
+        label="When?"
+        {...jsDateFormatter}
+        highlightCurrentDay
+      />
+    </ConnectedForm>
   </Drawer>
 );

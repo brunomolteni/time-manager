@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "03/30/2020 2:14:46 AM"
+    "x-generation-date": "04/03/2020 9:19:32 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -2351,7 +2351,8 @@
               "id",
               "username",
               "email",
-              "PreferredWorkingHourPerDay"
+              "PreferredWorkingHourPerDay",
+              "DarkMode"
             ],
             "properties": {
               "id": {
@@ -2389,6 +2390,9 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "DarkMode": {
+                "type": "boolean"
               }
             }
           }
@@ -2476,7 +2480,8 @@
                 "id",
                 "username",
                 "email",
-                "PreferredWorkingHourPerDay"
+                "PreferredWorkingHourPerDay",
+                "DarkMode"
               ],
               "properties": {
                 "id": {
@@ -2514,6 +2519,9 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "DarkMode": {
+                  "type": "boolean"
                 }
               }
             }
@@ -2554,7 +2562,8 @@
           "id",
           "username",
           "email",
-          "PreferredWorkingHourPerDay"
+          "PreferredWorkingHourPerDay",
+          "DarkMode"
         ],
         "properties": {
           "id": {
@@ -2642,6 +2651,10 @@
                 }
               }
             }
+          },
+          "DarkMode": {
+            "type": "boolean",
+            "default": false
           }
         }
       },
@@ -2649,7 +2662,8 @@
         "required": [
           "username",
           "email",
-          "PreferredWorkingHourPerDay"
+          "PreferredWorkingHourPerDay",
+          "DarkMode"
         ],
         "properties": {
           "username": {
@@ -2690,6 +2704,10 @@
             "items": {
               "type": "string"
             }
+          },
+          "DarkMode": {
+            "type": "boolean",
+            "default": false
           }
         }
       },

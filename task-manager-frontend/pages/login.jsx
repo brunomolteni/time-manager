@@ -2,16 +2,13 @@ import { useState } from "react";
 
 import { LoginForm, Header } from "../components";
 
-import { login } from "../actions";
+import { user } from "../actions";
 
 export default () => {
-  const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const submitLogin = (ev) => {
-    setSubmitting(true);
-    login(ev).catch((error) => {
-      setSubmitting(false);
+  const submitLogin = (values) => {
+    user.login(values).catch((error) => {
       setError(error.toString());
     });
   };
@@ -19,7 +16,7 @@ export default () => {
   return (
     <main>
       <Header />
-      <LoginForm onSubmit={submitLogin} submitting={submitting} error={error} />
+      <LoginForm onSubmit={submitLogin} error={error} />
     </main>
   );
 };

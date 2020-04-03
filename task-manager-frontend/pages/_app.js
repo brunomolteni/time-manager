@@ -6,7 +6,6 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <SWRConfig
       value={{
-        refreshInterval: 10000,
         dedupingInterval: 10000,
         fetcher: get,
       }}
