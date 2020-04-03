@@ -1,49 +1,35 @@
 import { useState } from "react";
-import { H1, H2, Spinner, Button } from "@blueprintjs/core";
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 import nookies from "nookies";
-import { get, post } from "../util/fetch";
+import { Button } from "@blueprintjs/core";
 
-import HoursForm from "../components/HoursForm";
-import HoursTable from "../components/HoursTable";
+import { HoursForm, HoursTable, Header } from "../components";
+import { addTask, logout } from "../actions";
 
 export default ({ user }) => {
   const [isFormOpen, setFormOpen] = useState(false);
-  const { data, error } = useSWR("/api/works", get, {
-    dedupingInterval: 10000
-  });
+  const { data, mutate } = useSWR("/api/works");
+
   const toggleForm = () => setFormOpen(!isFormOpen);
-  const addWork = async ev => {
-    ev.preventDefault();
 
-    const date = new Date(
-      ev.target.querySelector(".add-work-date input").value
-    );
-
-    const newTask = {
-      Task: ev.target.task.value,
-      Date: date.toISOString(),
-      Duration: +ev.target.duration.value,
-      user: user.id.toString()
-    };
-
-    post("/api/works", newTask);
-
-    mutate("api/works", data.push(newTask));
-    toggleForm();
-  };
-  const logout = () => post("/api/logout");
+  const add = (ev) =>
+    addTask(ev, user).then((newTask) => {
+      mutate(data.concat([newTask]));
+      toggleForm();
+    });
 
   return (
     <main>
-      <H1>Task Manager</H1>
-      <div className="flex-row">
-        <Button onClick={toggleForm}>Add Work</Button>
-        <Button>Filter</Button>
-        <Button onClick={logout}>Logout</Button>
-      </div>
-      <HoursForm isOpen={isFormOpen} onClose={toggleForm} onSubmit={addWork} />
-      {data ? <HoursTable rows={data} /> : <Spinner />}
+      <Header isLoggedIn>
+        <Button icon="add" intent="primary" onClick={toggleForm}>
+          Log Work
+        </Button>
+        <Button icon="filter">Filter</Button>
+      </Header>
+
+      <HoursTable rows={data} />
+
+      <HoursForm isOpen={isFormOpen} onClose={toggleForm} onSubmit={add} />
     </main>
   );
 };

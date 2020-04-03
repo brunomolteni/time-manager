@@ -1,6 +1,6 @@
-import { ControlGroup, InputGroup, Button, Card } from "@blueprintjs/core";
+import { ControlGroup, InputGroup, Button, Callout } from "@blueprintjs/core";
 
-export default ({ onSubmit, submitting }) => {
+export default ({ onSubmit, submitting, error }) => {
   return (
     <form onSubmit={onSubmit} method="POST" target="/login">
       <ControlGroup vertical={false} fill>
@@ -18,10 +18,21 @@ export default ({ onSubmit, submitting }) => {
           name="password"
           leftIcon="key"
         />
-        <Button type="submit" large loading={submitting} disabled={submitting}>
+        <Button
+          type="submit"
+          icon="log-in"
+          large
+          loading={submitting}
+          disabled={submitting}
+        >
           Login
         </Button>
       </ControlGroup>
+      {error && (
+        <Callout title="There was an error" intent={Intent.DANGER}>
+          {error}
+        </Callout>
+      )}
     </form>
   );
 };

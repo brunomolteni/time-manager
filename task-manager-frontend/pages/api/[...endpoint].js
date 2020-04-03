@@ -1,18 +1,18 @@
 import nookies from "nookies";
 import fetch from "node-fetch";
+import { config } from "../../util";
 
 // Proxy all /api/* requests to API server
 
 async function proxyHandler(req, res) {
-  const api = process.env.API_URL || "localhost";
-  const port = process.env.API_PORT || "1337";
+  const { API_URL, API_PORT } = config;
   const cookies = nookies.get({ req, res });
   const options = {
     method: req.method,
     headers: {
       ...req.headers,
-      Authorization: `Bearer ${cookies.token}`
-    }
+      Authorization: `Bearer ${cookies.token}`,
+    },
   };
 
   if (req.method !== "GET" && req.body) {
@@ -24,9 +24,9 @@ async function proxyHandler(req, res) {
   const { endpoint } = req.query;
   let status;
   let result = await fetch(
-    `http://${api}:${port}/${endpoint.join("/")}`,
+    `http://${API_URL}:${API_PORT}/${endpoint.join("/")}`,
     options
-  ).then(res => {
+  ).then((res) => {
     status = res.status;
     return res.json();
   });

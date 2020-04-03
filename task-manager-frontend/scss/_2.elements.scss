@@ -1,0 +1,20 @@
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+main {
+  padding: ($pt-navbar-height + $pt-grid-size) $pt-grid-size;
+  background: linear-gradient(to top, #fff, #fafafa 50%) no-repeat;
+  background-size: cover;
+  overflow-y: auto;
+
+  @media screen and (min-width: 720px) {
+    padding: ($pt-navbar-height + $pt-grid-size) 20vw;
+  }
+}
+
+table {
+  width: 100%;
+}

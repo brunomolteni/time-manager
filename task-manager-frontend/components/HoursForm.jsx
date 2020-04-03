@@ -4,15 +4,15 @@ import {
   InputGroup,
   FormGroup,
   Button,
-  NumericInput
+  NumericInput,
 } from "@blueprintjs/core";
 import { DateInput } from "@blueprintjs/datetime";
 
 const jsDateFormatter = {
   // note that the native implementation of Date functions differs between browsers
-  formatDate: date => date.toISOString(),
-  parseDate: str => new Date(str),
-  placeholder: "M/D/YYYY"
+  formatDate: (date) => date.toISOString(),
+  parseDate: (str) => new Date(str),
+  placeholder: "M/D/YYYY",
 };
 
 export default ({ isOpen, onClose, onSubmit }) => (
@@ -23,7 +23,7 @@ export default ({ isOpen, onClose, onSubmit }) => (
     title="Add worked hours"
     onClose={onClose}
   >
-    <form className="padded" onSubmit={onSubmit}>
+    <form className="u-padded" onSubmit={onSubmit}>
       <ControlGroup vertical>
         <FormGroup label="What did you work on?" labelFor="task">
           <InputGroup placeholder="killer app" autoFocus name="task" />

@@ -1,0 +1,6 @@
+@import "./0.settings"; // contain font, colors definitions, etc.
+@import "./1.generic"; // reset and/or normalize styles, box-sizing definition
+@import "./2.elements"; // styling for bare HTML elements (like H1, A, etc.).
+@import "./3.objects"; // class-based selectors which define undecorated design patterns
+@import "./4.components"; // specific UI components
+@import "./5.utilities"; // utilities and helper classes with ability to override anything which goes before in the triangle
