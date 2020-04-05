@@ -1,34 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { put, post, del } from "../util";
 
-// create: async (work) => {
-//   const date = new Date(work.Date);
-
-//   const newTask = {
-//     ...work,
-//     Date: date.toISOString(),
-//   };
-
-//   return post("/api/works", newTask);
-// },
-// delete: async (work) => del(`/api/works/${work.id}`),
-// edit: async (work) => put(`/api/works/${work.id}`, work),
-
 const asyncActions = {
-  create: createAsyncThunk("user/logout", async (work) => {
-    const date = new Date(work.Date);
-
-    const newTask = {
-      ...work,
-      Date: date.toISOString(),
-    };
-
-    return post("/api/works", newTask);
-  }),
-  edit: createAsyncThunk("user/logout", async (work) =>
+  createWork: createAsyncThunk("work/create", async (work) =>
+    post("/api/works", { ...work, date: work.date.toISOString() })
+  ),
+  editWork: createAsyncThunk("work/edit", async (work) =>
     put(`/api/works/${work.id}`, work)
   ),
-  delete: createAsyncThunk("user/logout", async (work) =>
+  deleteWork: createAsyncThunk("work/delete", async (work) =>
     del(`/api/works/${work.id}`)
   ),
 };

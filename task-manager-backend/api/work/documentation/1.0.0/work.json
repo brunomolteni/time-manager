@@ -517,21 +517,21 @@
       "Work": {
         "required": [
           "id",
-          "Task",
-          "Duration",
-          "Date"
+          "task",
+          "duration",
+          "date"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
-          "Task": {
+          "task": {
             "type": "string"
           },
-          "Duration": {
+          "duration": {
             "type": "integer"
           },
-          "Date": {
+          "date": {
             "type": "string"
           },
           "user": {
@@ -539,8 +539,8 @@
               "id",
               "username",
               "email",
-              "PreferredWorkingHourPerDay",
-              "DarkMode"
+              "hoursPerDay",
+              "darkMode"
             ],
             "properties": {
               "id": {
@@ -570,7 +570,7 @@
               "role": {
                 "type": "string"
               },
-              "PreferredWorkingHourPerDay": {
+              "hoursPerDay": {
                 "type": "integer"
               },
               "works": {
@@ -579,7 +579,10 @@
                   "type": "string"
                 }
               },
-              "DarkMode": {
+              "darkMode": {
+                "type": "boolean"
+              },
+              "manager": {
                 "type": "boolean"
               }
             }
@@ -588,18 +591,18 @@
       },
       "NewWork": {
         "required": [
-          "Task",
-          "Duration",
-          "Date"
+          "task",
+          "duration",
+          "date"
         ],
         "properties": {
-          "Task": {
+          "task": {
             "type": "string"
           },
-          "Duration": {
+          "duration": {
             "type": "integer"
           },
-          "Date": {
+          "date": {
             "type": "string"
           },
           "user": {

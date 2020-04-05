@@ -2,11 +2,12 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import nookies from "nookies";
 import { put, post } from "../util";
 import Router from "next/router";
+import { bindActionCreators } from "redux";
 
 import { config } from "../util";
 
 const asyncActions = {
-  edit: createAsyncThunk("user/edit", async (settings, { getState }) => {
+  editUser: createAsyncThunk("user/edit", async (settings, { getState }) => {
     const { id } = getState().user;
     const newUser = { ...settings, id };
 
@@ -34,7 +35,7 @@ const userSlice = createSlice({
     init: (user, action) => action.payload,
   },
   extraReducers: {
-    [asyncActions.edit.fulfilled]: (user, action) => ({
+    [asyncActions.editUser.fulfilled]: (user, action) => ({
       ...user,
       ...action.payload,
     }),

@@ -2,11 +2,11 @@ import { post, put, del } from "../util";
 
 export default {
   create: async (work) => {
-    const date = new Date(work.Date);
+    const date = new Date(work.date);
 
     const newTask = {
       ...work,
-      Date: date.toISOString(),
+      date: date.toISOString(),
     };
 
     return post("/api/works", newTask);

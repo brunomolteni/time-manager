@@ -1,19 +1,18 @@
 import { Button, Navbar, Alignment, Classes } from "@blueprintjs/core";
-import { useDispatch, useSelector } from "react-redux";
-import { bindActionCreators } from "redux";
+import { useSelector } from "react-redux";
 
 import { SettingsForm } from "../components";
+import { useActions } from "../hooks";
 import { uiActions, userActions } from "../redux";
 
 export default ({ children }) => {
   const user = useSelector((state) => state.user);
   const { settings } = useSelector((state) => state.ui);
 
-  const dispatch = useDispatch();
-
-  const toggleSettings = () => dispatch(uiActions.toggleSettings());
-  const logOut = () => dispatch(userActions.logout());
-  const editUser = (values) => dispatch(userActions.edit(values));
+  const { toggleSettings, logout, editUser } = useActions({
+    ...uiActions,
+    ...userActions,
+  });
 
   return (
     <>
@@ -38,13 +37,13 @@ export default ({ children }) => {
         {user.id && (
           <Navbar.Group align={Alignment.RIGHT}>
             <Navbar.Divider />
-            <Button icon="cog" onClick={toggleSettings}>
+            <Button icon="cog" onClick={() => toggleSettings()}>
               Settings
             </Button>
             <Button
               minimal
               icon="log-out"
-              onClick={logOut}
+              onClick={() => logout()}
               loading={user.loggingOut}
             >
               Logout
@@ -55,7 +54,7 @@ export default ({ children }) => {
       {user.id && (
         <SettingsForm
           isOpen={settings.open}
-          onClose={toggleSettings}
+          onClose={() => toggleSettings()}
           onSubmit={editUser}
           user={user}
         />

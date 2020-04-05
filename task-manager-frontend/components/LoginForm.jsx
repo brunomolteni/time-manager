@@ -17,7 +17,7 @@ const validation = (values) => {
 };
 
 export default ({ onSubmit, error }) => (
-  <Card elevation={Elevation.TWO}>
+  <Card elevation={Elevation.TWO} className="login-form">
     {error && (
       <Callout title={error} intent={Intent.DANGER} className="u-mb-1">
         Incorrect user or password

@@ -2,25 +2,31 @@ import {
   HTMLTable,
   Spinner,
   NonIdealState,
+  Button,
   Icon,
   Intent,
   Classes,
 } from "@blueprintjs/core";
 
-export default ({ rows, editWork, hoursPerDay }) => {
+import { useActions } from "../hooks";
+import { uiActions } from "../redux";
+
+const HoursTable = ({ rows, hoursPerDay }) => {
   const toText = (date) => new Date(date).toLocaleDateString();
-  const byDate = (a, b) => new Date(b.Date) - new Date(a.Date);
+  const byDate = (a, b) => new Date(b.date) - new Date(a.date);
 
   const firstRowOfDate = (i, rows) =>
-    i > 0 && rows[i].Date !== rows[i - 1].Date;
+    i > 0 && rows[i].date !== rows[i - 1].date;
 
   const hoursWorked = {};
   rows &&
     rows.forEach(
-      ({ Date, Duration }) =>
-        (hoursWorked[toText(Date)] =
-          (hoursWorked[toText(Date)] || 0) + Duration)
+      ({ date, duration }) =>
+        (hoursWorked[toText(date)] =
+          (hoursWorked[toText(date)] || 0) + duration)
     );
+
+  const { toggleForm, startEditing } = useActions(uiActions);
 
   if (typeof rows === "undefined") {
     return <Spinner />;
@@ -30,6 +36,11 @@ export default ({ rows, editWork, hoursPerDay }) => {
         icon="clean"
         title="Get Started"
         description="Looks like  you haven't logged any work yet."
+        action={
+          <Button icon="add" intent="primary" onClick={() => toggleForm()}>
+            Log Work
+          </Button>
+        }
       />
     );
   } else {
@@ -49,7 +60,7 @@ export default ({ rows, editWork, hoursPerDay }) => {
               className={
                 firstRowOfDate(i, rows) ? `${Classes.HTML_TABLE}--row` : null
               }
-              onClick={() => editWork(row)}
+              onClick={() => startEditing(row)}
             >
               <td>
                 {(i === 0 || firstRowOfDate(i, rows)) && (
@@ -58,17 +69,17 @@ export default ({ rows, editWork, hoursPerDay }) => {
                       className="u-mr-1"
                       icon={"error" || "endorsed"}
                       intent={
-                        hoursWorked[toText(row.Date)] >= hoursPerDay
+                        hoursWorked[toText(row.date)] >= hoursPerDay
                           ? Intent.SUCCESS
                           : Intent.DANGER
                       }
                     />
-                    {toText(row.Date)}
+                    {toText(row.date)}
                   </span>
                 )}
               </td>
-              <td>{row.Task}</td>
-              <td>{row.Duration}</td>
+              <td>{row.task}</td>
+              <td>{row.duration}</td>
             </tr>
           ))}
         </tbody>
@@ -76,3 +87,7 @@ export default ({ rows, editWork, hoursPerDay }) => {
     );
   }
 };
+
+HoursTable.displayName = "HoursTable";
+
+export default HoursTable;

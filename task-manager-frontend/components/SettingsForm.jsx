@@ -3,9 +3,9 @@ import { Drawer, NumericInput, Switch } from "@blueprintjs/core";
 import { ConnectedForm, ConnectedInput } from "./";
 
 export default ({ isOpen, onClose, onSubmit, user }) => {
-  const validation = ({ PreferredWorkingHourPerDay }) => {
+  const validation = ({ hoursPerDay }) => {
     const errors = {};
-    if (PreferredWorkingHourPerDay > 12)
+    if (hoursPerDay > 12)
       errors.Pre1ferredWorkingHourPerDay =
         "Really !? When do you plan to sleep ?";
     return errors;
@@ -19,29 +19,29 @@ export default ({ isOpen, onClose, onSubmit, user }) => {
       title="Your Settings"
       icon="cog"
       onClose={onClose}
-      className={user.DarkMode ? "bp3-dark" : null}
+      className={user.darkMode ? "bp3-dark" : null}
     >
       <ConnectedForm
         className="u-padded"
         onSubmit={onSubmit}
         validate={validation}
         initialValues={{
-          PreferredWorkingHourPerDay: user.PreferredWorkingHourPerDay,
-          DarkMode: user.DarkMode,
+          hoursPerDay: user.hoursPerDay,
+          darkMode: user.darkMode,
         }}
       >
         <ConnectedInput
           component={NumericInput}
           label="Preferred working hours per day"
           placeholder="8"
-          name="PreferredWorkingHourPerDay"
+          name="hoursPerDay"
           min="0"
           max="24"
         />
         <ConnectedInput
           component={Switch}
           label="Dark Mode"
-          name="DarkMode"
+          name="darkMode"
           checkbox
         />
       </ConnectedForm>

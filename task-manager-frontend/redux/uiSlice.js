@@ -1,10 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { actions as userActions } from "./userSlice";
+import { actions as workActions } from "./workSlice";
 
 const uiSlice = createSlice({
   name: "ui",
-  initialState: { login: {}, settings: {}, form: {}, filter: {} },
+  initialState: {
+    login: {},
+    settings: {},
+    form: {},
+    filter: { selecting: false },
+  },
   reducers: {
     toggleSettings: (ui) => {
       ui.settings.open = !ui.settings.open;
@@ -20,9 +26,16 @@ const uiSlice = createSlice({
       ui.form.open = false;
       ui.form.editing = false;
     },
+    startFiltering: (ui) => {
+      ui.filter.selecting = true;
+    },
+    setFilter: (ui, { payload }) => {
+      ui.filter.range = payload;
+      ui.filter.selecting = false;
+    },
   },
   extraReducers: {
-    [userActions.edit.fulfilled]: (ui) => {
+    [userActions.editUser.fulfilled]: (ui) => {
       ui.settings.open = !ui.settings.open;
     },
     [userActions.login.rejected]: (ui, action) => {
@@ -30,6 +43,20 @@ const uiSlice = createSlice({
     },
     [userActions.login.fulfilled]: (ui) => {
       ui.login = {};
+    },
+    [workActions.createWork.fulfilled]: (ui) => {
+      ui.form.open = false;
+    },
+    [workActions.editWork.fulfilled]: (ui) => {
+      ui.form.open = false;
+      ui.form.editing = false;
+    },
+    [workActions.deleteWork.pending]: (ui) => {
+      ui.form.deleting = true;
+    },
+    [workActions.deleteWork.fulfilled]: (ui) => {
+      ui.form.open = false;
+      ui.form.deleting = false;
     },
   },
 });

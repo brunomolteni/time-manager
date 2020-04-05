@@ -54,7 +54,7 @@
       "plugin": "users-permissions",
       "configurable": false
     },
-    "PreferredWorkingHourPerDay": {
+    "hoursPerDay": {
       "type": "integer",
       "default": 8,
       "required": true,
@@ -63,13 +63,19 @@
       "min": 0
     },
     "works": {
-      "via": "user",
-      "collection": "work"
+      "collection": "work",
+      "via": "user"
     },
-    "DarkMode": {
+    "darkMode": {
       "type": "boolean",
       "default": false,
       "required": true
+    },
+    "manager": {
+      "type": "boolean",
+      "default": false,
+      "private": false,
+      "required": false
     }
   }
 }

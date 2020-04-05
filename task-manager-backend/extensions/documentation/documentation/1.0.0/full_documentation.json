@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "04/03/2020 9:19:32 PM"
+    "x-generation-date": "04/05/2020 8:05:38 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -2329,21 +2329,21 @@
       "Work": {
         "required": [
           "id",
-          "Task",
-          "Duration",
-          "Date"
+          "task",
+          "duration",
+          "date"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
-          "Task": {
+          "task": {
             "type": "string"
           },
-          "Duration": {
+          "duration": {
             "type": "integer"
           },
-          "Date": {
+          "date": {
             "type": "string"
           },
           "user": {
@@ -2351,8 +2351,8 @@
               "id",
               "username",
               "email",
-              "PreferredWorkingHourPerDay",
-              "DarkMode"
+              "hoursPerDay",
+              "darkMode"
             ],
             "properties": {
               "id": {
@@ -2382,7 +2382,7 @@
               "role": {
                 "type": "string"
               },
-              "PreferredWorkingHourPerDay": {
+              "hoursPerDay": {
                 "type": "integer"
               },
               "works": {
@@ -2391,7 +2391,10 @@
                   "type": "string"
                 }
               },
-              "DarkMode": {
+              "darkMode": {
+                "type": "boolean"
+              },
+              "manager": {
                 "type": "boolean"
               }
             }
@@ -2400,18 +2403,18 @@
       },
       "NewWork": {
         "required": [
-          "Task",
-          "Duration",
-          "Date"
+          "task",
+          "duration",
+          "date"
         ],
         "properties": {
-          "Task": {
+          "task": {
             "type": "string"
           },
-          "Duration": {
+          "duration": {
             "type": "integer"
           },
-          "Date": {
+          "date": {
             "type": "string"
           },
           "user": {
@@ -2480,8 +2483,8 @@
                 "id",
                 "username",
                 "email",
-                "PreferredWorkingHourPerDay",
-                "DarkMode"
+                "hoursPerDay",
+                "darkMode"
               ],
               "properties": {
                 "id": {
@@ -2511,7 +2514,7 @@
                 "role": {
                   "type": "string"
                 },
-                "PreferredWorkingHourPerDay": {
+                "hoursPerDay": {
                   "type": "integer"
                 },
                 "works": {
@@ -2520,7 +2523,10 @@
                     "type": "string"
                   }
                 },
-                "DarkMode": {
+                "darkMode": {
+                  "type": "boolean"
+                },
+                "manager": {
                   "type": "boolean"
                 }
               }
@@ -2562,8 +2568,8 @@
           "id",
           "username",
           "email",
-          "PreferredWorkingHourPerDay",
-          "DarkMode"
+          "hoursPerDay",
+          "darkMode"
         ],
         "properties": {
           "id": {
@@ -2620,7 +2626,7 @@
               }
             }
           },
-          "PreferredWorkingHourPerDay": {
+          "hoursPerDay": {
             "type": "integer",
             "default": 8
           },
@@ -2629,21 +2635,21 @@
             "items": {
               "required": [
                 "id",
-                "Task",
-                "Duration",
-                "Date"
+                "task",
+                "duration",
+                "date"
               ],
               "properties": {
                 "id": {
                   "type": "string"
                 },
-                "Task": {
+                "task": {
                   "type": "string"
                 },
-                "Duration": {
+                "duration": {
                   "type": "integer"
                 },
-                "Date": {
+                "date": {
                   "type": "string"
                 },
                 "user": {
@@ -2652,7 +2658,11 @@
               }
             }
           },
-          "DarkMode": {
+          "darkMode": {
+            "type": "boolean",
+            "default": false
+          },
+          "manager": {
             "type": "boolean",
             "default": false
           }
@@ -2662,8 +2672,8 @@
         "required": [
           "username",
           "email",
-          "PreferredWorkingHourPerDay",
-          "DarkMode"
+          "hoursPerDay",
+          "darkMode"
         ],
         "properties": {
           "username": {
@@ -2695,7 +2705,7 @@
           "role": {
             "type": "string"
           },
-          "PreferredWorkingHourPerDay": {
+          "hoursPerDay": {
             "type": "integer",
             "default": 8
           },
@@ -2705,7 +2715,11 @@
               "type": "string"
             }
           },
-          "DarkMode": {
+          "darkMode": {
+            "type": "boolean",
+            "default": false
+          },
+          "manager": {
             "type": "boolean",
             "default": false
           }

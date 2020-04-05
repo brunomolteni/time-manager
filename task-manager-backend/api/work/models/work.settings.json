@@ -10,23 +10,23 @@
     "timestamps": true
   },
   "attributes": {
-    "Task": {
+    "task": {
       "type": "string",
       "required": true,
       "unique": false
     },
-    "Duration": {
+    "duration": {
       "type": "integer",
       "required": true
     },
-    "Date": {
+    "date": {
       "type": "date",
       "required": true
     },
     "user": {
+      "via": "works",
       "plugin": "users-permissions",
-      "model": "user",
-      "via": "works"
+      "model": "user"
     }
   }
 }

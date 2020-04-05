@@ -580,8 +580,8 @@
                 "id",
                 "username",
                 "email",
-                "PreferredWorkingHourPerDay",
-                "DarkMode"
+                "hoursPerDay",
+                "darkMode"
               ],
               "properties": {
                 "id": {
@@ -611,7 +611,7 @@
                 "role": {
                   "type": "string"
                 },
-                "PreferredWorkingHourPerDay": {
+                "hoursPerDay": {
                   "type": "integer"
                 },
                 "works": {
@@ -620,7 +620,10 @@
                     "type": "string"
                   }
                 },
-                "DarkMode": {
+                "darkMode": {
+                  "type": "boolean"
+                },
+                "manager": {
                   "type": "boolean"
                 }
               }
