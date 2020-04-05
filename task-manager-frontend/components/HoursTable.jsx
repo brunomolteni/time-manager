@@ -11,7 +11,7 @@ import {
 import { useActions } from "../hooks";
 import { uiActions } from "../redux";
 
-const HoursTable = ({ rows, hoursPerDay }) => {
+const HoursTable = ({ rows, hoursPerDay, isFiltering }) => {
   const toText = (date) => new Date(date).toLocaleDateString();
   const byDate = (a, b) => new Date(b.date) - new Date(a.date);
 
@@ -33,13 +33,19 @@ const HoursTable = ({ rows, hoursPerDay }) => {
   } else if (!rows.length) {
     return (
       <NonIdealState
-        icon="clean"
-        title="Get Started"
-        description="Looks like  you haven't logged any work yet."
+        icon={isFiltering ? "search" : "clean"}
+        title={isFiltering ? "Nothing to show" : "Get Started"}
+        description={
+          isFiltering
+            ? "Looks like you didn't log anything on these dates"
+            : "Looks like  you haven't logged any work yet."
+        }
         action={
-          <Button icon="add" intent="primary" onClick={() => toggleForm()}>
-            Log Work
-          </Button>
+          !isFiltering && (
+            <Button icon="add" intent="primary" onClick={() => toggleForm()}>
+              Log Work
+            </Button>
+          )
         }
       />
     );

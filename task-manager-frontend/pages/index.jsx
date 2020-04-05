@@ -33,7 +33,11 @@ export default () => {
         <Button icon="export">Export</Button>
       </Header>
 
-      <HoursTable rows={data} hoursPerDay={user.hoursPerDay} />
+      <HoursTable
+        rows={data}
+        hoursPerDay={user.hoursPerDay}
+        isFiltering={filter.range}
+      />
 
       <HoursForm />
     </main>

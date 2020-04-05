@@ -49,7 +49,7 @@ export default ({ onSubmit, error, done }) => (
           name="email"
           type="email"
           label="Email"
-          leftIcon="email"
+          leftIcon="envelope"
           large
           required
         />
