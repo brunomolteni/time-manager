@@ -1,50 +1,65 @@
-import { useState } from "react";
-import { Button, Navbar, Alignment } from "@blueprintjs/core";
-import nookies from "nookies";
+import { Button, Navbar, Alignment, Classes } from "@blueprintjs/core";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
 
-import { user as userActions } from "../actions";
 import { SettingsForm } from "../components";
+import { uiActions, userActions } from "../redux";
 
-import { config } from "../util";
+export default ({ children }) => {
+  const user = useSelector((state) => state.user);
+  const { settings } = useSelector((state) => state.ui);
 
-export default ({ children, user }) => {
-  const [isSettingsOpen, setSettingsOpen] = useState(false);
-  const toggleSettings = () => setSettingsOpen(!isSettingsOpen);
+  const dispatch = useDispatch();
 
-  // Save settings then update the cookies
-  const editUser = (values) =>
-    userActions.edit(user.id, { ...user, ...values }).then((newUser) => {
-      nookies.set(null, "user", JSON.stringify(newUser), config.COOKIES);
-    });
+  const toggleSettings = () => dispatch(uiActions.toggleSettings());
+  const logOut = () => dispatch(userActions.logout());
+  const editUser = (values) => dispatch(userActions.edit(values));
 
   return (
     <>
       <Navbar fixedToTop>
         <Navbar.Group>
           <Navbar.Heading className="u-flex-row">
-            <img src="/logo.svg" className="u-mr-1" />
-            Work-o-tron 3000
+            <svg
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="currentColor"
+              className="u-mr-1"
+              default
+            >
+              <path d="M13 4.055c4.5.497 8 4.312 8 8.945v9H3v-9c0-4.633 3.5-8.448 8-8.945V1h2v3.055zM12 18a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0-2a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0-2a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+            </svg>
+            <h1>Work-o-tron 3000</h1>
           </Navbar.Heading>
           <Navbar.Divider />
           {children}
         </Navbar.Group>
-        {user && (
+        {user.id && (
           <Navbar.Group align={Alignment.RIGHT}>
             <Navbar.Divider />
             <Button icon="cog" onClick={toggleSettings}>
               Settings
             </Button>
-            <Button minimal icon="log-out" onClick={userActions.logout}>
+            <Button
+              minimal
+              icon="log-out"
+              onClick={logOut}
+              loading={user.loggingOut}
+            >
               Logout
             </Button>
           </Navbar.Group>
         )}
       </Navbar>
-      <SettingsForm
-        isOpen={isSettingsOpen}
-        onClose={toggleSettings}
-        onSubmit={editUser}
-      />
+      {user.id && (
+        <SettingsForm
+          isOpen={settings.open}
+          onClose={toggleSettings}
+          onSubmit={editUser}
+          user={user}
+        />
+      )}
     </>
   );
 };

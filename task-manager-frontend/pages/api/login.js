@@ -1,26 +1,44 @@
+import fetch from "node-fetch";
 import nookies from "nookies";
 
-import { post, config } from "../../util";
+import { config } from "../../util";
 
 // Try to login, if successful then return user object and save token, otherwise return error
-
 async function loginHandler(req, res) {
   const { API_URL, API_PORT, COOKIES } = config;
 
   if (req.method === "POST") {
-    return post(`http://${API_URL}:${API_PORT}/auth/local`, req.body)
-      .then(({ jwt, user }) => {
-        delete user.provider;
-        delete user.updated_at;
-        delete user.created_at;
+    const options = {
+      method: "POST",
+      body: JSON.stringify(req.body),
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+    };
 
-        nookies.set({ req, res }, "user", JSON.stringify(user), COOKIES);
-        nookies.set({ req, res }, "token", jwt, COOKIES);
+    const response = await fetch(
+      `http://${API_URL}:${API_PORT}/auth/local`,
+      options
+    );
 
-        return res.status(200).json(user);
-      })
-      .catch((error) => res.status(400).json({ error }));
-  } else return res.status(404);
+    if (response.ok) {
+      let { jwt, user } = await response.json();
+      let { id, PreferredWorkingHourPerDay, DarkMode } = user;
+      const publicUser = { id, PreferredWorkingHourPerDay, DarkMode };
+
+      nookies.set({ req, res }, "token", jwt, COOKIES);
+      nookies.set({ req, res }, "user", JSON.stringify(publicUser), COOKIES);
+
+      return res.status(200).json(publicUser);
+    } else {
+      return res
+        .status(response.status)
+        .json({ error: response.statusText, status: response.status });
+    }
+  } else {
+    return res.status(404);
+  }
 }
 
 export default loginHandler;

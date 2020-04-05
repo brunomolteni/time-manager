@@ -1,17 +1,15 @@
-import { useState } from "react";
+import nookies from "nookies";
+import { useSelector, useDispatch } from "react-redux";
 
 import { LoginForm, Header } from "../components";
 
-import { user } from "../actions";
+import { userActions } from "../redux";
 
 export default () => {
-  const [error, setError] = useState("");
+  const { error } = useSelector((state) => state.ui.login);
+  const dispatch = useDispatch();
 
-  const submitLogin = (values) => {
-    user.login(values).catch((error) => {
-      setError(error.toString());
-    });
-  };
+  const submitLogin = (credentials) => dispatch(userActions.login(credentials));
 
   return (
     <main>
@@ -20,3 +18,12 @@ export default () => {
     </main>
   );
 };
+
+// If the user is already logged redirect to home
+export async function getServerSideProps(ctx) {
+  let props = {};
+  let cookies = nookies.get(ctx);
+
+  if (cookies.user) ctx.res.writeHead(302, { Location: "/" }).end();
+  return { props };
+}

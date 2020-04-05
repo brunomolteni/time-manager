@@ -5,3 +5,4 @@ export { default as Header } from "./Header";
 export { default as SettingsForm } from "./SettingsForm";
 export { default as ConnectedForm } from "./ConnectedForm";
 export { default as ConnectedInput } from "./ConnectedInput";
+export { default as DateFilter } from "./DateFilter";

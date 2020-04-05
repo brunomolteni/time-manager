@@ -1,10 +1,34 @@
-import { ControlGroup, InputGroup, Callout } from "@blueprintjs/core";
+import {
+  ControlGroup,
+  InputGroup,
+  Callout,
+  Card,
+  Elevation,
+  Intent,
+} from "@blueprintjs/core";
 import { ConnectedForm, ConnectedInput } from "./";
 
+const validation = (values) => {
+  const errors = {};
+  if (!values.identifier) errors.identifier = "User is required";
+  if (!values.password) errors.password = "Password is required";
+
+  return errors;
+};
+
 export default ({ onSubmit, error }) => (
-  <>
-    <ConnectedForm onSubmit={onSubmit}>
-      <ControlGroup vertical={false} fill>
+  <Card elevation={Elevation.TWO}>
+    {error && (
+      <Callout title={error} intent={Intent.DANGER} className="u-mb-1">
+        Incorrect user or password
+      </Callout>
+    )}
+    <ConnectedForm
+      onSubmit={onSubmit}
+      submitLabel="Login"
+      validate={validation}
+    >
+      <ControlGroup fill>
         <ConnectedInput
           component={InputGroup}
           name="identifier"
@@ -25,10 +49,5 @@ export default ({ onSubmit, error }) => (
         />
       </ControlGroup>
     </ConnectedForm>
-    {error && (
-      <Callout title="There was an error" intent={Intent.DANGER}>
-        {error}
-      </Callout>
-    )}
-  </>
+  </Card>
 );

@@ -13,9 +13,10 @@ main {
   overflow-y: auto;
   min-height: 100vh;
 
-  @media screen and (min-width: 720px) {
+  @media screen and (min-width: 600px) {
     padding: ($pt-navbar-height + $pt-grid-size) 20vw;
   }
+
   &.bp3-dark {
     background-image: linear-gradient(
       to bottom,

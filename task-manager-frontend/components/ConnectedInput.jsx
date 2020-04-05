@@ -11,9 +11,7 @@ export default ({
   ...rest
 }) => {
   const type = (radio && "radio") || (checkbox && "checkbox") || undefined;
-  const [field, meta, helpers] = useField({ name, type, multiple });
-
-  console.log(name, field.value);
+  const [field, meta] = useField({ name, type, multiple });
 
   // avoid getting errors about changing an uncontrolled input to be controlled
   field.value = field.value || "";

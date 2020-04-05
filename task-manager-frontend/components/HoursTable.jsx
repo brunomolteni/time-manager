@@ -2,12 +2,38 @@ import {
   HTMLTable,
   Spinner,
   NonIdealState,
+  Icon,
+  Intent,
   Classes,
 } from "@blueprintjs/core";
 
-export default ({ rows, editWork }) =>
-  typeof rows !== "undefined" ? (
-    rows.length ? (
+export default ({ rows, editWork, hoursPerDay }) => {
+  const toText = (date) => new Date(date).toLocaleDateString();
+  const byDate = (a, b) => new Date(b.Date) - new Date(a.Date);
+
+  const firstRowOfDate = (i, rows) =>
+    i > 0 && rows[i].Date !== rows[i - 1].Date;
+
+  const hoursWorked = {};
+  rows &&
+    rows.forEach(
+      ({ Date, Duration }) =>
+        (hoursWorked[toText(Date)] =
+          (hoursWorked[toText(Date)] || 0) + Duration)
+    );
+
+  if (typeof rows === "undefined") {
+    return <Spinner />;
+  } else if (!rows.length) {
+    return (
+      <NonIdealState
+        icon="clean"
+        title="Get Started"
+        description="Looks like  you haven't logged any work yet."
+      />
+    );
+  } else {
+    return (
       <HTMLTable condensed interactive>
         <thead>
           <tr>
@@ -17,20 +43,29 @@ export default ({ rows, editWork }) =>
           </tr>
         </thead>
         <tbody>
-          {rows.map((row, i) => (
+          {rows.sort(byDate).map((row, i) => (
             <tr
               key={row.id}
               className={
-                i > 0 && row.Date !== rows[i - 1].Date
-                  ? `${Classes.HTML_TABLE}--row`
-                  : null
+                firstRowOfDate(i, rows) ? `${Classes.HTML_TABLE}--row` : null
               }
               onClick={() => editWork(row)}
             >
               <td>
-                {i > 0 && row.Date === rows[i - 1].Date
-                  ? ""
-                  : new Date(row.Date).toLocaleDateString()}
+                {(i === 0 || firstRowOfDate(i, rows)) && (
+                  <span>
+                    <Icon
+                      className="u-mr-1"
+                      icon={"error" || "endorsed"}
+                      intent={
+                        hoursWorked[toText(row.Date)] >= hoursPerDay
+                          ? Intent.SUCCESS
+                          : Intent.DANGER
+                      }
+                    />
+                    {toText(row.Date)}
+                  </span>
+                )}
               </td>
               <td>{row.Task}</td>
               <td>{row.Duration}</td>
@@ -38,13 +73,6 @@ export default ({ rows, editWork }) =>
           ))}
         </tbody>
       </HTMLTable>
-    ) : (
-      <NonIdealState
-        icon="clean"
-        title="Get Started"
-        description="Looks like  you haven't logged any work yet."
-      />
-    )
-  ) : (
-    <Spinner />
-  );
+    );
+  }
+};

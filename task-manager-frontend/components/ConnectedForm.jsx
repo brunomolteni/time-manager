@@ -6,6 +6,8 @@ export default ({
   onSubmit,
   initialValues,
   submitLabel = "Submit",
+  submitFill = true,
+  className,
   ...formProps
 }) => (
   <Formik
@@ -16,16 +18,16 @@ export default ({
     {({ handleChange, handleSubmit, isSubmitting, isValidating, isValid }) => {
       return (
         <form
-          className="u-padded"
           onSubmit={handleSubmit}
           onChange={handleChange}
+          className={className}
         >
           {children}
           <Button
             large
             type="submit"
             intent={Intent.SUCCESS}
-            fill="true"
+            fill={submitFill}
             disabled={isSubmitting || !isValid}
             loading={isSubmitting || isValidating}
           >
