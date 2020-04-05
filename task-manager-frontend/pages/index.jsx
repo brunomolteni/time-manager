@@ -13,7 +13,11 @@ export default () => {
 
   const { toggleForm, toggleFiltering } = useActions(uiActions);
 
-  const { data } = useSWR("/api/works");
+  const { data } = useSWR(() =>
+    filter.range
+      ? `/api/works?date_gte=${filter.range.start}&date_lte=${filter.range.end}`
+      : "/api/works"
+  );
 
   return (
     <main className={user.darkMode ? "bp3-dark" : null}>

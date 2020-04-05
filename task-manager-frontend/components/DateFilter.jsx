@@ -9,15 +9,13 @@ export default ({ onChange }) => {
 
   const oneDay = 24 * 60 * 60 * 1000;
   const today = new Date();
-  const aWeekAgo = new Date(today.getTime() - oneDay * 7);
-
   const { setFilter } = useActions(uiActions);
 
   const changeFilter = ([start, end]) => {
     if (start && end) {
       setFilter({
-        start: start ? start.getTime() : aWeekAgo.getTime(),
-        end: end ? end.getTime() : today.getTime(),
+        start: start ? start.toISOString() : today.toISOString(),
+        end: end ? end.toISOString() : today.toISOString(),
       });
     }
   };
@@ -27,7 +25,7 @@ export default ({ onChange }) => {
   return (
     <DateRangePicker
       className={Classes.POPOVER_DISMISS_OVERRIDE}
-      defaultValue={parsedFilter || [aWeekAgo, today]}
+      defaultValue={parsedFilter || [today, today]}
       onChange={changeFilter}
       allowSingleDayRange="true"
       singleMonthOnly="true"
