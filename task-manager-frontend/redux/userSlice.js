@@ -15,6 +15,9 @@ const asyncActions = {
     nookies.set(null, "user", JSON.stringify(newUser), config.COOKIES);
     return newUser;
   }),
+  register: createAsyncThunk("user/register", async (credentials) => {
+    return post("/api/auth/local/register", credentials);
+  }),
   login: createAsyncThunk("user/login", async (credentials) => {
     return post("/api/login", credentials).then((user) => {
       Router.push("/");

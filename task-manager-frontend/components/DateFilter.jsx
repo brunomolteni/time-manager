@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { DateRangePicker } from "@blueprintjs/datetime";
+import { DateRangePicker, Classes } from "@blueprintjs/datetime";
 
 import { uiActions } from "../redux";
 import { useActions } from "../hooks";
@@ -9,14 +9,14 @@ export default ({ onChange }) => {
 
   const oneDay = 24 * 60 * 60 * 1000;
   const today = new Date();
-  const yesterday = new Date(today.getTime() - oneDay);
+  const aWeekAgo = new Date(today.getTime() - oneDay * 7);
 
   const { setFilter } = useActions(uiActions);
 
   const changeFilter = ([start, end]) => {
     if (start && end) {
       setFilter({
-        start: start ? start.getTime() : yesterday.getTime(),
+        start: start ? start.getTime() : aWeekAgo.getTime(),
         end: end ? end.getTime() : today.getTime(),
       });
     }
@@ -26,7 +26,8 @@ export default ({ onChange }) => {
 
   return (
     <DateRangePicker
-      defaultValue={parsedFilter || [yesterday, today]}
+      className={Classes.POPOVER_DISMISS_OVERRIDE}
+      defaultValue={parsedFilter || [aWeekAgo, today]}
       onChange={changeFilter}
       allowSingleDayRange="true"
       singleMonthOnly="true"

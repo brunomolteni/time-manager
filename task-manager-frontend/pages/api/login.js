@@ -24,8 +24,8 @@ async function loginHandler(req, res) {
 
     if (response.ok) {
       let { jwt, user } = await response.json();
-      let { id, hoursPerDay, DarkMode } = user;
-      const publicUser = { id, hoursPerDay, DarkMode };
+      let { id, hoursPerDay, darkMode } = user;
+      const publicUser = { id, hoursPerDay, darkMode };
 
       nookies.set({ req, res }, "token", jwt, COOKIES);
       nookies.set({ req, res }, "user", JSON.stringify(publicUser), COOKIES);

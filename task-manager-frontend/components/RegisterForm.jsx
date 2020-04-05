@@ -6,35 +6,56 @@ import {
   Elevation,
   Intent,
   AnchorButton,
-  ButtonGroup,
 } from "@blueprintjs/core";
 import Link from "next/link";
-import { ConnectedForm, ConnectedInput } from "./";
+
+import { ConnectedForm, ConnectedInput } from ".";
 
 const validation = (values) => {
   const errors = {};
-  if (!values.identifier) errors.identifier = "User is required";
+  if (!values.email) errors.identifier = "Email is required";
+  if (!values.username) errors.username = "User is required";
   if (!values.password) errors.password = "Password is required";
 
   return errors;
 };
 
-export default ({ onSubmit, error }) => (
+export default ({ onSubmit, error, done }) => (
   <Card elevation={Elevation.TWO} className="login-form u-flex-col">
     {error && (
       <Callout title={error} intent={Intent.DANGER} className="u-mb-1">
         Incorrect user or password
       </Callout>
     )}
+    {done && (
+      <Callout
+        title="You registered correctly"
+        intent={Intent.SUCCESS}
+        className="u-mb-1"
+      >
+        <Link href="/register">
+          <AnchorButton>Register</AnchorButton>
+        </Link>
+      </Callout>
+    )}
     <ConnectedForm
       onSubmit={onSubmit}
-      submitLabel="Login"
+      submitLabel="Register"
       validate={validation}
     >
-      <ControlGroup fill>
+      <ControlGroup fill vertical>
         <ConnectedInput
           component={InputGroup}
-          name="identifier"
+          name="email"
+          type="email"
+          label="Email"
+          leftIcon="email"
+          large
+          required
+        />
+        <ConnectedInput
+          component={InputGroup}
+          name="username"
           type="text"
           label="User"
           leftIcon="user"
@@ -52,10 +73,5 @@ export default ({ onSubmit, error }) => (
         />
       </ControlGroup>
     </ConnectedForm>
-    <ButtonGroup minimal className="u-mt-1">
-      <Link href="/register">
-        <AnchorButton>Register</AnchorButton>
-      </Link>
-    </ButtonGroup>
   </Card>
 );

@@ -7,6 +7,7 @@ const uiSlice = createSlice({
   name: "ui",
   initialState: {
     login: {},
+    register: {},
     settings: {},
     form: {},
     filter: { selecting: false },
@@ -26,8 +27,8 @@ const uiSlice = createSlice({
       ui.form.open = false;
       ui.form.editing = false;
     },
-    startFiltering: (ui) => {
-      ui.filter.selecting = true;
+    toggleFiltering: (ui) => {
+      ui.filter.selecting = !ui.filter.selecting;
     },
     setFilter: (ui, { payload }) => {
       ui.filter.range = payload;
@@ -43,6 +44,12 @@ const uiSlice = createSlice({
     },
     [userActions.login.fulfilled]: (ui) => {
       ui.login = {};
+    },
+    [userActions.register.rejected]: (ui, action) => {
+      ui.register.error = action.error.message;
+    },
+    [userActions.register.fulfilled]: (ui) => {
+      ui.register.done = true;
     },
     [workActions.createWork.fulfilled]: (ui) => {
       ui.form.open = false;

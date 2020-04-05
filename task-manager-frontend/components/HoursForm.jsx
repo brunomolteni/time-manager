@@ -42,6 +42,7 @@ export default ({ onSubmit }) => {
     : { user: `${user.id}` };
 
   const close = form.editing ? actions.finishEditing : actions.toggleForm;
+
   const refreshLocalData = () => mutate("/api/works");
   const addWork = (item) => actions.createWork(item).then(refreshLocalData);
   const editWork = (item) => actions.editWork(item).then(refreshLocalData);

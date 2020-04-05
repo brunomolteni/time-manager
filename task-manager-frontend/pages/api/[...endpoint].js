@@ -1,3 +1,4 @@
+const { URL, URLSearchParams } = require("url");
 import nookies from "nookies";
 import fetch from "node-fetch";
 import { config } from "../../util";
@@ -11,9 +12,10 @@ async function proxyHandler(req, res) {
     method: req.method,
     headers: {
       ...req.headers,
-      Authorization: `Bearer ${cookies.token}`,
     },
   };
+
+  if (cookies.token) options.headers.Authorization = `Bearer ${cookies.token}`;
 
   if (req.method !== "GET" && req.body) {
     options.body = JSON.stringify(req.body);
@@ -22,11 +24,12 @@ async function proxyHandler(req, res) {
   }
 
   const { endpoint } = req.query;
+  delete req.query.endpoint;
+  var url = new URL(`http://${API_URL}:${API_PORT}/${endpoint.join("/")}`);
+  url.search = new URLSearchParams(req.query).toString();
+
   let status;
-  let result = await fetch(
-    `http://${API_URL}:${API_PORT}/${endpoint.join("/")}`,
-    options
-  ).then((res) => {
+  let result = await fetch(url, options).then((res) => {
     status = res.status;
     return res.json();
   });

@@ -24,4 +24,12 @@ module.exports = {
       sanitizeEntity(entity, { model: strapi.models.work })
     );
   },
+  async create(ctx) {
+    let entity;
+
+    ctx.request.body.user = ctx.state.user.id;
+    entity = await strapi.services.work.create(ctx.request.body);
+
+    return sanitizeEntity(entity, { model: strapi.models.work });
+  },
 };

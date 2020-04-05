@@ -1,19 +1,19 @@
 import nookies from "nookies";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import { LoginForm, Header } from "../components";
+import { RegisterForm, Header } from "../components";
 
 import { useActions } from "../hooks";
 import { userActions } from "../redux";
 
 export default () => {
-  const { error } = useSelector((state) => state.ui.login);
-  const { login } = useActions(userActions);
+  const { done, error } = useSelector((state) => state.ui.register);
+  const { register } = useActions(userActions);
 
   return (
     <main>
       <Header />
-      <LoginForm onSubmit={login} error={error} />
+      <RegisterForm onSubmit={register} error={error} done={done} />
     </main>
   );
 };

@@ -11,7 +11,7 @@ export default () => {
   const user = useSelector((state) => state.user);
   const { filter } = useSelector((state) => state.ui);
 
-  const { toggleForm, startFiltering } = useActions(uiActions);
+  const { toggleForm, toggleFiltering } = useActions(uiActions);
 
   const { data } = useSWR("/api/works");
 
@@ -21,12 +21,10 @@ export default () => {
         <Button icon="add" intent="primary" onClick={() => toggleForm()}>
           Log Work
         </Button>
-        <Popover
-          content={<DateFilter />}
-          isOpen={filter.selecting}
-          onInteraction={() => startFiltering()}
-        >
-          <Button icon="filter">Filter</Button>
+        <Popover content={<DateFilter />} isOpen={filter.selecting}>
+          <Button icon="filter" onClick={() => toggleFiltering()}>
+            Filter
+          </Button>
         </Popover>
         <Button icon="export">Export</Button>
       </Header>
