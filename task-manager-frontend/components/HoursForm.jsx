@@ -84,6 +84,8 @@ export default ({ refresh }) => {
             label="When?"
             {...jsDateFormatter}
             highlightCurrentDay
+            initialMonth={new Date()}
+            maxDate={new Date()}
           />
         </ConnectedForm>
         {form.editing && (

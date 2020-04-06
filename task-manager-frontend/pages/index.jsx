@@ -9,7 +9,7 @@ import { uiActions } from "../redux";
 import { exportData } from "../util";
 
 export default () => {
-  const user = useSelector((state) => state.user);
+  const { darkMode } = useSelector((state) => state.user);
   const { filter } = useSelector((state) => state.ui);
 
   const { toggleForm, toggleFiltering } = useActions(uiActions);
@@ -20,38 +20,36 @@ export default () => {
   const { data: { log, totalHours } = {}, mutate } = useSWR(endpoint);
 
   return (
-    <main className={user.darkMode ? "bp3-dark" : null}>
+    <main className={darkMode ? "bp3-dark" : null}>
       <Header>
         <Button icon="add" intent="primary" onClick={() => toggleForm()}>
           Log Work
         </Button>
         <Popover
-          content={
-            <DateFilter
-              totalHours={totalHours}
-              hoursPerDay={user.hoursPerDay}
-            />
-          }
+          content={<DateFilter totalHours={totalHours} />}
           onInteraction={(shouldOpen) =>
             filter.selecting && !shouldOpen && toggleFiltering()
           }
           isOpen={filter.selecting}
         >
-          <Button icon="filter" onClick={() => toggleFiltering()}>
+          <Button
+            icon="filter"
+            onClick={() => toggleFiltering()}
+            className="u-ml-1"
+          >
             Filter
           </Button>
         </Popover>
-        <Button icon="export" onClick={() => exportData(log)}>
+        <Button
+          icon="export"
+          onClick={() => exportData(log)}
+          className="u-ml-1"
+        >
           Export
         </Button>
       </Header>
 
-      <HoursTable
-        rows={log}
-        hoursPerDay={user.hoursPerDay}
-        isFiltering={filter.range}
-        totalHours={totalHours}
-      />
+      <HoursTable rows={log} totalHours={totalHours} />
 
       <HoursForm refresh={mutate} />
     </main>

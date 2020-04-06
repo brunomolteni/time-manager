@@ -8,12 +8,23 @@ import { dateRange } from "../util";
 const uiSlice = createSlice({
   name: "ui",
   initialState: {
-    login: {},
-    register: {},
-    settings: {},
-    form: {},
+    login: {
+      error: false,
+    },
+    register: {
+      done: false,
+      error: false,
+    },
+    settings: {
+      open: false,
+    },
+    form: {
+      open: false,
+      editing: false,
+    },
     filter: {
       selecting: false,
+      searching: false,
       range: dateRange(7), // by default show the past week
     },
   },
@@ -38,6 +49,7 @@ const uiSlice = createSlice({
     setFilter: (ui, { payload }) => {
       ui.filter.range = payload;
       ui.filter.selecting = false;
+      ui.filter.searching = true;
     },
   },
   extraReducers: {

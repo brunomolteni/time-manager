@@ -3,9 +3,6 @@
 @import "~@blueprintjs/datetime/lib/css/blueprint-datetime.css";
 
 .bp3-navbar {
-  button + button {
-    margin-left: $pt-grid-size;
-  }
   h1 {
     font-size: 1.2rem;
     cursor: pointer;

@@ -4,8 +4,9 @@ import { DateRangePicker, Classes } from "@blueprintjs/datetime";
 import { uiActions } from "../redux";
 import { useActions } from "../hooks";
 
-export default ({ totalHours = {}, hoursPerDay }) => {
+export default ({ totalHours = {} }) => {
   const { range } = useSelector((state) => state.ui.filter);
+  const { hoursPerDay } = useSelector((state) => state.user);
 
   const { setFilter } = useActions(uiActions);
 

@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+
 import {
   HTMLTable,
   Spinner,
@@ -11,29 +13,33 @@ import {
 import { useActions } from "../hooks";
 import { uiActions } from "../redux";
 
-const HoursTable = ({ rows, hoursPerDay, isFiltering, totalHours }) => {
-  const toLocale = (date) => new Date(date).toLocaleDateString();
-  const toISO = (date) => new Date(date).toISOString().split('T')[0];
+const HoursTable = ({ rows, totalHours }) => {
+  const { hoursPerDay } = useSelector((state) => state.user);
+  const { searching } = useSelector((state) => state.ui.filter);
 
   const firstRowOfDate = (i, rows) =>
     i > 0 && rows[i].date !== rows[i - 1].date;
 
+  const toLocale = (date) => new Date(date).toLocaleDateString();
+  const toISO = (date) => new Date(date).toISOString().split("T")[0];
   const { toggleForm, startEditing } = useActions(uiActions);
 
   if (typeof rows === "undefined") {
+    //  ----------------------- Spinner ------------------------
     return <Spinner />;
   } else if (!rows.length) {
+    //  ----------------------- Empty State --------------------
     return (
       <NonIdealState
-        icon={isFiltering ? "search" : "clean"}
-        title={isFiltering ? "Nothing to show" : "Get Started"}
+        icon={searching ? "search" : "clean"}
+        title={searching ? "Nothing to show" : "Get Started"}
         description={
-          isFiltering
+          searching
             ? "Looks like you didn't log anything on these dates"
             : "Looks like  you haven't logged any work yet."
         }
         action={
-          !isFiltering && (
+          !searching && (
             <Button icon="add" intent="primary" onClick={() => toggleForm()}>
               Log Work
             </Button>
@@ -42,6 +48,7 @@ const HoursTable = ({ rows, hoursPerDay, isFiltering, totalHours }) => {
       />
     );
   } else {
+    //  ----------------------- Table ------------------------
     return (
       <HTMLTable condensed interactive>
         <thead>
