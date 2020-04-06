@@ -1,5 +1,5 @@
-export { default as HoursTable } from "./HoursTable";
-export { default as HoursForm } from "./HoursForm";
+export { default as WorkTable } from "./WorkTable";
+export { default as WorkForm } from "./WorkForm";
 export { default as LoginForm } from "./LoginForm";
 export { default as Header } from "./Header";
 export { default as SettingsForm } from "./SettingsForm";
@@ -7,3 +7,6 @@ export { default as ConnectedForm } from "./ConnectedForm";
 export { default as ConnectedInput } from "./ConnectedInput";
 export { default as DateFilter } from "./DateFilter";
 export { default as RegisterForm } from "./RegisterForm";
+export { default as HomeActions } from "./HomeActions";
+export { default as UsersTable } from "./UsersTable";
+export { default as UsersForm } from "./UsersForm";

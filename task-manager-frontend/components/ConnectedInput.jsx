@@ -24,7 +24,6 @@ export default ({
       break;
     case "Blueprint3.DateInput":
       const onChange = field.onChange;
-      const date = new Date();
       field.onChange = (value) => onChange({ target: { value, name } });
       field.value = field.value || null;
       break;

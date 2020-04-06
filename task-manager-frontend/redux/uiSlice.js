@@ -54,7 +54,8 @@ const uiSlice = createSlice({
   },
   extraReducers: {
     [userActions.editUser.fulfilled]: (ui) => {
-      ui.settings.open = !ui.settings.open;
+      ui.settings.open = false;
+      ui.form.open = false;
     },
     [userActions.login.rejected]: (ui, action) => {
       ui.login.error = action.error.message;
@@ -67,6 +68,13 @@ const uiSlice = createSlice({
     },
     [userActions.register.fulfilled]: (ui) => {
       ui.register.done = true;
+    },
+    [userActions.deleteUser.pending]: (ui) => {
+      ui.form.deleting = true;
+    },
+    [userActions.deleteUser.fulfilled]: (ui) => {
+      ui.form.open = false;
+      ui.form.deleting = false;
     },
     [workActions.createWork.fulfilled]: (ui) => {
       ui.form.open = false;

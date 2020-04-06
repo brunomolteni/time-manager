@@ -1,29 +1,30 @@
 import { useSelector } from "react-redux";
 import useSWR from "swr";
 import nookies from "nookies";
-import { H2 } from "@blueprintjs/core";
+import { Button, H2 } from "@blueprintjs/core";
+import Link from "next/link";
 
-import { WorkForm, WorkTable, Header, HomeActions } from "../components";
+import { Header, UsersTable, UsersForm } from "../components";
 
 export default () => {
   const { darkMode } = useSelector((state) => state.user);
-  const { filter } = useSelector((state) => state.ui);
 
-  const endpoint = () =>
-    `/api/works?date_gte=${filter.range.start}&date_lte=${filter.range.end}`;
-
-  const { data: { log, totalHours } = {}, mutate } = useSWR(endpoint);
+  const { data, mutate } = useSWR("/api/users");
 
   return (
     <main className={darkMode ? "bp3-dark" : null}>
       <Header>
-        <HomeActions totalHours={totalHours} />
+        <Link href="/">
+          <Button icon="list-columns" className="u-ml-1">
+            Work Log
+          </Button>
+        </Link>
       </Header>
 
-      <H2>Work Log</H2>
-      <WorkTable rows={log} totalHours={totalHours} />
+      <H2>Users</H2>
+      <UsersTable users={data} />
 
-      <WorkForm refresh={mutate} />
+      <UsersForm refresh={mutate} />
     </main>
   );
 };

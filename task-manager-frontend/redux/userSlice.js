@@ -1,23 +1,29 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import nookies from "nookies";
-import { put, post } from "../util";
 import Router from "next/router";
-import { bindActionCreators } from "redux";
 
-import { config } from "../util";
+import { config, put, post, del } from "../util";
 
 const asyncActions = {
   editUser: createAsyncThunk("user/edit", async (settings, { getState }) => {
-    const { id } = getState().user;
-    const newUser = { ...settings, id };
+    const { id: userId } = getState().user;
+    const { id: editedId } = getState().ui.form.editing;
 
-    await put(`/api/users/${id}`, settings);
-    nookies.set(null, "user", JSON.stringify(newUser), config.COOKIES);
-    return newUser;
+    return put(`/api/users/${editedId}`, settings).then((newUser) => {
+      const { id, hoursPerDay, darkMode, role } = newUser;
+      const publicUser = { id, hoursPerDay, darkMode, role: role.type };
+      if (editedId === userId) {
+        nookies.set(null, "user", JSON.stringify(publicUser), config.COOKIES);
+      }
+      return publicUser;
+    });
   }),
-  register: createAsyncThunk("user/register", async (credentials) => {
-    return post("/api/auth/local/register", credentials);
-  }),
+  deleteUser: createAsyncThunk("user/delete", async (id) =>
+    del(`/api/users/${id}`)
+  ),
+  register: createAsyncThunk("user/register", async (credentials) =>
+    post("/api/auth/local/register", credentials)
+  ),
   login: createAsyncThunk("user/login", async (credentials) => {
     return post("/api/login", credentials).then((user) => {
       Router.push("/");

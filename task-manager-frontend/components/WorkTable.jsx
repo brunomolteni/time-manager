@@ -55,7 +55,7 @@ const HoursTable = ({ rows, totalHours }) => {
           <tr>
             <th>Date</th>
             <th>Tasks</th>
-            <th>Hours</th>
+            <th>Duration</th>
           </tr>
         </thead>
         <tbody>

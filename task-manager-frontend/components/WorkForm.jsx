@@ -7,7 +7,6 @@ import {
 } from "@blueprintjs/core";
 import { DateInput } from "@blueprintjs/datetime";
 import { useSelector } from "react-redux";
-import { mutate } from "swr";
 import * as Yup from "yup";
 
 import { ConnectedInput, ConnectedForm } from ".";
@@ -25,7 +24,7 @@ const jsDateFormatter = {
 const workValidation = Yup.object().shape({
   task: Yup.string().required("Required"),
   duration: Yup.number()
-    .min(0, "So you didn't actually worked on anything then.")
+    .min(1, "So you didn't actually worked on anything then.")
     .max(24, "Oh Really? Well a day only has 24 hours, you know?")
     .required("Required"),
   date: Yup.date().required("Required"),
@@ -39,7 +38,7 @@ export default ({ refresh }) => {
 
   const formValues = form.editing
     ? { ...form.editing, date: new Date(form.editing.date) }
-    : { user: `${user.id}` };
+    : { user: `${user.id}`, date: new Date() };
 
   const close = form.editing ? actions.finishEditing : actions.toggleForm;
 
@@ -52,7 +51,7 @@ export default ({ refresh }) => {
       isOpen={form.open}
       size="250px"
       title={form.editing ? "Edit" : "Log worked hours"}
-      icon={form.editing ? "edit" : "add"}
+      icon={form.editing ? "settings" : "add"}
       onClose={() => close()}
       className={user.darkMode ? "bp3-dark" : null}
     >
@@ -75,7 +74,7 @@ export default ({ refresh }) => {
             placeholder="8"
             name="duration"
             label="How many hours?"
-            min="0"
+            min="1"
             max="24"
           />
           <ConnectedInput
@@ -94,7 +93,7 @@ export default ({ refresh }) => {
             fill
             large
             className="u-mt-1"
-            onClick={() => deleteWork(form.editing)}
+            onClick={() => deleteWork(form.editing.id)}
             loading={form.deleting}
           >
             Delete
