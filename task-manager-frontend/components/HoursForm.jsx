@@ -31,7 +31,7 @@ const workValidation = Yup.object().shape({
   date: Yup.date().required("Required"),
 });
 
-export default ({ onSubmit }) => {
+export default ({ refresh }) => {
   const user = useSelector((state) => state.user);
   const { form } = useSelector((state) => state.ui);
 
@@ -43,10 +43,9 @@ export default ({ onSubmit }) => {
 
   const close = form.editing ? actions.finishEditing : actions.toggleForm;
 
-  const refreshLocalData = () => mutate("/api/works");
-  const addWork = (item) => actions.createWork(item).then(refreshLocalData);
-  const editWork = (item) => actions.editWork(item).then(refreshLocalData);
-  const deleteWork = (item) => actions.deleteWork(item).then(refreshLocalData);
+  const addWork = (item) => actions.createWork(item).then(refresh);
+  const editWork = (item) => actions.editWork(item).then(refresh);
+  const deleteWork = (item) => actions.deleteWork(item).then(refresh);
 
   return (
     <Drawer

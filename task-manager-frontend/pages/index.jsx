@@ -17,7 +17,7 @@ export default () => {
   const endpoint = () =>
     `/api/works?date_gte=${filter.range.start}&date_lte=${filter.range.end}`;
 
-  const { data: { log, totalHours } = {} } = useSWR(endpoint);
+  const { data: { log, totalHours } = {}, mutate } = useSWR(endpoint);
 
   return (
     <main className={user.darkMode ? "bp3-dark" : null}>
@@ -53,7 +53,7 @@ export default () => {
         totalHours={totalHours}
       />
 
-      <HoursForm />
+      <HoursForm refresh={mutate} />
     </main>
   );
 };
