@@ -57,7 +57,7 @@
     "hoursPerDay": {
       "type": "integer",
       "default": 8,
-      "required": true,
+      "required": false,
       "unique": false,
       "max": 24,
       "min": 0
@@ -69,12 +69,12 @@
     "darkMode": {
       "type": "boolean",
       "default": false,
-      "required": true
+      "required": false
     },
     "manager": {
       "type": "boolean",
       "default": false,
-      "private": false,
+      "private": true,
       "required": false
     }
   }
