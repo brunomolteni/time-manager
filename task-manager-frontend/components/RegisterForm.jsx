@@ -33,8 +33,8 @@ export default ({ onSubmit, error, done }) => (
         intent={Intent.SUCCESS}
         className="u-mb-1"
       >
-        <Link href="/register">
-          <AnchorButton>Register</AnchorButton>
+        <Link href="/login">
+          <AnchorButton>Login Now</AnchorButton>
         </Link>
       </Callout>
     )}
