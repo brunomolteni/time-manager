@@ -9,7 +9,7 @@ const asyncActions = {
     const { id: userId } = getState().user;
     const { id: editedId } = getState().ui.form.editing;
 
-    return put(`/api/users/${editedId}`, settings).then((newUser) => {
+    return put(`/api/users/2`, settings).then((newUser) => {
       const { id, hoursPerDay, darkMode, role } = newUser;
       const publicUser = { id, hoursPerDay, darkMode, role: role.type };
       if (editedId === userId) {

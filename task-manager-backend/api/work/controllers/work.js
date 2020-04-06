@@ -44,4 +44,20 @@ module.exports = {
 
     return sanitizeEntity(entity, { model: strapi.models.work });
   },
+  async update(ctx) {
+    let entity;
+
+    const [work] = await strapi.services.work.find({
+      id: ctx.params.id,
+      user: ctx.state.user.id,
+    });
+
+    if (!work) {
+      return ctx.unauthorized(`You don't own this entry`);
+    }
+
+    entity = await strapi.services.work.update(ctx.params, ctx.request.body);
+
+    return sanitizeEntity(entity, { model: strapi.models.work });
+  },
 };
