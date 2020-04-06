@@ -2,23 +2,32 @@ import { useSelector } from "react-redux";
 import useSWR from "swr";
 import nookies from "nookies";
 import { Button, H2 } from "@blueprintjs/core";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { Header, UsersTable, UsersForm } from "../components";
 
 export default () => {
-  const { darkMode } = useSelector((state) => state.user);
+  const router = useRouter();
+  const { darkMode, role } = useSelector((state) => state.user);
+  const isManager = role !== "authenticated";
+  React.useEffect(() => {
+    if (!isManager) {
+      router.replace("/");
+    }
+  }, [role]);
 
-  const { data, mutate } = useSWR("/api/users");
+  const { data, mutate } = useSWR(() => isManager && "/api/users");
 
   return (
     <main className={darkMode ? "bp3-dark" : null}>
       <Header>
-        <Link href="/">
-          <Button icon="list-columns" className="u-ml-1">
-            Work Log
-          </Button>
-        </Link>
+        <Button
+          icon="list-columns"
+          className="u-ml-1"
+          onClick={() => router.push("/")}
+        >
+          Work Log
+        </Button>
       </Header>
 
       <H2>Users</H2>
