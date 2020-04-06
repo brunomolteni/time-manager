@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { actions as userActions } from "./userSlice";
 import { actions as workActions } from "./workSlice";
 
+import { dateRange } from "../util";
+
 const uiSlice = createSlice({
   name: "ui",
   initialState: {
@@ -10,7 +12,10 @@ const uiSlice = createSlice({
     register: {},
     settings: {},
     form: {},
-    filter: { selecting: false },
+    filter: {
+      selecting: false,
+      range: dateRange(7), // by default show the past week
+    },
   },
   reducers: {
     toggleSettings: (ui) => {

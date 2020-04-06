@@ -1,10 +1,10 @@
+// fetch() helpers with predefined headers and validation of the response status
+
 const acceptOnly200 = (response) => {
   if (response.ok) {
     return response.json();
   } else return Promise.reject(response.statusText);
 };
-
-const bypass = (res) => res;
 
 const request = (...args) => fetch(...args).then(acceptOnly200);
 

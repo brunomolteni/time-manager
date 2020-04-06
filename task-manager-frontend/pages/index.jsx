@@ -6,6 +6,7 @@ import { Button, Popover, PopoverInteractionKind } from "@blueprintjs/core";
 import { HoursForm, HoursTable, Header, DateFilter } from "../components";
 import { useActions } from "../hooks";
 import { uiActions } from "../redux";
+import { exportData } from "../util";
 
 export default () => {
   const user = useSelector((state) => state.user);
@@ -13,11 +14,10 @@ export default () => {
 
   const { toggleForm, toggleFiltering } = useActions(uiActions);
 
-  const { data } = useSWR(() =>
-    filter.range
-      ? `/api/works?date_gte=${filter.range.start}&date_lte=${filter.range.end}`
-      : "/api/works"
-  );
+  const endpoint = () =>
+    `/api/works?date_gte=${filter.range.start}&date_lte=${filter.range.end}`;
+
+  const { data: { log, totalHours } = {} } = useSWR(endpoint);
 
   return (
     <main className={user.darkMode ? "bp3-dark" : null}>
@@ -25,18 +25,32 @@ export default () => {
         <Button icon="add" intent="primary" onClick={() => toggleForm()}>
           Log Work
         </Button>
-        <Popover content={<DateFilter />} isOpen={filter.selecting}>
+        <Popover
+          content={
+            <DateFilter
+              totalHours={totalHours}
+              hoursPerDay={user.hoursPerDay}
+            />
+          }
+          onInteraction={(shouldOpen) =>
+            filter.selecting && !shouldOpen && toggleFiltering()
+          }
+          isOpen={filter.selecting}
+        >
           <Button icon="filter" onClick={() => toggleFiltering()}>
             Filter
           </Button>
         </Popover>
-        <Button icon="export">Export</Button>
+        <Button icon="export" onClick={() => exportData(log)}>
+          Export
+        </Button>
       </Header>
 
       <HoursTable
-        rows={data}
+        rows={log}
         hoursPerDay={user.hoursPerDay}
         isFiltering={filter.range}
+        totalHours={totalHours}
       />
 
       <HoursForm />

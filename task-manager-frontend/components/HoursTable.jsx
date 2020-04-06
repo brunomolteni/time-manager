@@ -11,20 +11,12 @@ import {
 import { useActions } from "../hooks";
 import { uiActions } from "../redux";
 
-const HoursTable = ({ rows, hoursPerDay, isFiltering }) => {
-  const toText = (date) => new Date(date).toLocaleDateString();
-  const byDate = (a, b) => new Date(b.date) - new Date(a.date);
+const HoursTable = ({ rows, hoursPerDay, isFiltering, totalHours }) => {
+  const toLocale = (date) => new Date(date).toLocaleDateString();
+  const toISO = (date) => new Date(date).toISOString().split('T')[0];
 
   const firstRowOfDate = (i, rows) =>
     i > 0 && rows[i].date !== rows[i - 1].date;
-
-  const hoursWorked = {};
-  rows &&
-    rows.forEach(
-      ({ date, duration }) =>
-        (hoursWorked[toText(date)] =
-          (hoursWorked[toText(date)] || 0) + duration)
-    );
 
   const { toggleForm, startEditing } = useActions(uiActions);
 
@@ -60,7 +52,7 @@ const HoursTable = ({ rows, hoursPerDay, isFiltering }) => {
           </tr>
         </thead>
         <tbody>
-          {rows.sort(byDate).map((row, i) => (
+          {rows.map((row, i) => (
             <tr
               key={row.id}
               className={
@@ -75,12 +67,12 @@ const HoursTable = ({ rows, hoursPerDay, isFiltering }) => {
                       className="u-mr-1"
                       icon={"error" || "endorsed"}
                       intent={
-                        hoursWorked[toText(row.date)] >= hoursPerDay
+                        totalHours[toISO(row.date)] >= hoursPerDay
                           ? Intent.SUCCESS
                           : Intent.DANGER
                       }
                     />
-                    {toText(row.date)}
+                    {toLocale(row.date)}
                   </span>
                 )}
               </td>

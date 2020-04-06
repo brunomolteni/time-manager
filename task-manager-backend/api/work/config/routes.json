@@ -9,22 +9,6 @@
       }
     },
     {
-      "method": "GET",
-      "path": "/works/count",
-      "handler": "work.count",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "GET",
-      "path": "/works/:id",
-      "handler": "work.findOne",
-      "config": {
-        "policies": []
-      }
-    },
-    {
       "method": "POST",
       "path": "/works",
       "handler": "work.create",

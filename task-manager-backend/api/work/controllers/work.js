@@ -7,22 +7,34 @@ const { sanitizeEntity } = require("strapi-utils");
 
 module.exports = {
   async find(ctx) {
-    let entities;
-    if (ctx.query._q) {
-      entities = await strapi.services.work.search({
-        ...ctx.query,
-        user: ctx.state.user.id,
-      });
-    } else {
-      entities = await strapi.services.work.find({
-        ...ctx.query,
-        user: ctx.state.user.id,
-      });
-    }
+    let filteredWork;
+    filteredWork = await strapi.services.work.find({
+      ...ctx.query,
+      user: ctx.state.user.id,
+      _sort: "date:desc",
+    });
 
-    return entities.map((entity) =>
-      sanitizeEntity(entity, { model: strapi.models.work })
-    );
+    let allWork;
+    allWork = await strapi.services.work.find({
+      user: ctx.state.user.id,
+      _sort: "date:desc",
+    });
+
+    let totalHours = {};
+
+    // for each date we add up the total hours worked on that date
+    allWork.forEach((work) => {
+      totalHours[work.date] = totalHours[work.date]
+        ? totalHours[work.date] + work.duration
+        : work.duration;
+    });
+
+    return {
+      totalHours,
+      log: filteredWork.map((entity) =>
+        sanitizeEntity(entity, { model: strapi.models.work })
+      ),
+    };
   },
   async create(ctx) {
     let entity;
