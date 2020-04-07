@@ -5,16 +5,17 @@ import Router from "next/router";
 import { config, put, post, del } from "../util";
 
 const asyncActions = {
-  editUser: createAsyncThunk("user/edit", async (settings, { getState }) => {
+  editUser: createAsyncThunk("user/edit", async (values, { getState }) => {
     const { id: userId } = getState().user;
-    const { id: editedId } = getState().ui.form.editing;
 
-    return put(`/api/users/2`, settings).then((newUser) => {
+    return put(`/api/users/${values.id}`, values).then((newUser) => {
       const { id, hoursPerDay, darkMode, role } = newUser;
       const publicUser = { id, hoursPerDay, darkMode, role: role.type };
-      if (editedId === userId) {
+
+      if (values.id === userId) {
         nookies.set(null, "user", JSON.stringify(publicUser), config.COOKIES);
       }
+
       return publicUser;
     });
   }),
@@ -44,10 +45,14 @@ const userSlice = createSlice({
     init: (user, action) => action.payload,
   },
   extraReducers: {
-    [asyncActions.editUser.fulfilled]: (user, action) => ({
-      ...user,
-      ...action.payload,
-    }),
+    [asyncActions.editUser.fulfilled]: (user, action) => {
+      if (user.id === action.payload.id) {
+        return {
+          ...user,
+          ...action.payload,
+        };
+      }
+    },
     [asyncActions.login.fulfilled]: (user, action) => action.payload,
     [asyncActions.logout.pending]: (user) => {
       user.loggingOut = true;

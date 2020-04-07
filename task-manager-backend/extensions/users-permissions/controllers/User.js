@@ -36,8 +36,8 @@ module.exports = {
     const { id } = ctx.params;
     const { email, username, password } = ctx.request.body;
 
-    if (ctx.state.user.id !== id && ctx.state.user.role.id === 1) {
-      return ctx.unauthorized(`You are not a manager`);
+    if (+ctx.state.user.id !== +id && ctx.state.user.role.id !== 3) {
+      return ctx.unauthorized("You are not a manager");
     }
 
     const user = await strapi.plugins["users-permissions"].services.user.fetch({

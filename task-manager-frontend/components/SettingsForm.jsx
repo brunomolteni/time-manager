@@ -28,6 +28,7 @@ export default ({ isOpen, onClose, onSubmit, user }) => {
         initialValues={{
           hoursPerDay: user.hoursPerDay,
           darkMode: user.darkMode,
+          id: user.id,
         }}
       >
         <ConnectedInput
