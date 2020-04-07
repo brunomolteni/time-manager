@@ -1,14 +1,16 @@
 {
   "host": "localhost",
-  "port": "${process.env.PORT || 1337}",
+  "port": "1337",
   "production": true,
   "proxy": {
-    "enabled": false
+    "enabled": true,
+    "host": "68.183.45.74"
   },
   "cron": {
     "enabled": false
   },
   "admin": {
-    "autoOpen": false
+    "autoOpen": false,
+    "path": "/admin"
   }
 }
