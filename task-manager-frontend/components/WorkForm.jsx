@@ -4,6 +4,7 @@ import {
   NumericInput,
   Button,
   Intent,
+  Callout,
 } from "@blueprintjs/core";
 import { DateInput } from "@blueprintjs/datetime";
 import { useSelector } from "react-redux";
@@ -98,6 +99,15 @@ export default ({ refresh }) => {
           >
             Delete
           </Button>
+        )}
+        {form.error && (
+          <Callout
+            title="There was an error"
+            intent={Intent.DANGER}
+            className="u-mt-1"
+          >
+            Try again
+          </Callout>
         )}
       </div>
     </Drawer>

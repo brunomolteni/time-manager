@@ -5,6 +5,7 @@ import {
   HTMLSelect,
   Button,
   Intent,
+  Callout,
 } from "@blueprintjs/core";
 import { useSelector } from "react-redux";
 import * as Yup from "yup";
@@ -95,6 +96,15 @@ export default ({ refresh }) => {
         >
           Delete
         </Button>
+        {form.error && (
+          <Callout
+            title="There was an error"
+            intent={Intent.DANGER}
+            className="u-mt-1"
+          >
+            Try again
+          </Callout>
+        )}
       </div>
     </Drawer>
   );

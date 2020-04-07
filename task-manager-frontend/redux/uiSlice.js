@@ -34,6 +34,7 @@ const uiSlice = createSlice({
     },
     toggleForm: (ui) => {
       ui.form.open = !ui.form.open;
+      ui.form.error = false;
     },
     startEditing: (ui, { payload }) => {
       ui.form.open = true;
@@ -56,6 +57,10 @@ const uiSlice = createSlice({
     [userActions.editUser.fulfilled]: (ui) => {
       ui.settings.open = false;
       ui.form.open = false;
+      ui.form.error = false;
+    },
+    [userActions.editUser.rejected]: (ui, action) => {
+      ui.form.error = true;
     },
     [userActions.login.rejected]: (ui, action) => {
       ui.login.error = action.error.message;
@@ -76,7 +81,11 @@ const uiSlice = createSlice({
     },
     [userActions.deleteUser.fulfilled]: (ui) => {
       ui.form.open = false;
+      ui.form.error = false;
       ui.form.deleting = false;
+    },
+    [userActions.deleteUser.rejected]: (ui, action) => {
+      ui.form.error = true;
     },
     [workActions.createWork.fulfilled]: (ui) => {
       ui.form.open = false;
@@ -84,6 +93,10 @@ const uiSlice = createSlice({
     [workActions.editWork.fulfilled]: (ui) => {
       ui.form.open = false;
       ui.form.editing = false;
+      ui.form.error = false;
+    },
+    [workActions.editWork.rejected]: (ui) => {
+      ui.form.error = true;
     },
     [workActions.deleteWork.pending]: (ui) => {
       ui.form.deleting = true;
@@ -91,6 +104,10 @@ const uiSlice = createSlice({
     [workActions.deleteWork.fulfilled]: (ui) => {
       ui.form.open = false;
       ui.form.deleting = false;
+      ui.form.error = false;
+    },
+    [workActions.deleteWork.rejected]: (ui) => {
+      ui.form.error = true;
     },
   },
 });
