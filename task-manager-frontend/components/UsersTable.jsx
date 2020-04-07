@@ -18,9 +18,7 @@ const UsersTable = ({ users }) => {
             <th>Id</th>
             <th>Username</th>
             <th>Email</th>
-            <th>Hours per day</th>
             <th>Role</th>
-            <th>Tasks Logged</th>
           </tr>
         </thead>
         <tbody>
@@ -29,9 +27,7 @@ const UsersTable = ({ users }) => {
               <td>{user.id}</td>
               <td>{user.username} </td>
               <td>{user.email}</td>
-              <td>{user.hoursPerDay}</td>
               <td>{user.role.name}</td>
-              <td>{user.works.length}</td>
             </tr>
           ))}
         </tbody>
