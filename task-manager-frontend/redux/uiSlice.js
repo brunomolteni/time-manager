@@ -39,6 +39,7 @@ const uiSlice = createSlice({
     startEditing: (ui, { payload }) => {
       ui.form.open = true;
       ui.form.editing = payload;
+      ui.form.error = false;
     },
     finishEditing: (ui) => {
       ui.form.open = false;
