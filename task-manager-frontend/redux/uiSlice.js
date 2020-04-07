@@ -62,12 +62,14 @@ const uiSlice = createSlice({
     },
     [userActions.login.fulfilled]: (ui) => {
       ui.login = {};
+      ui.login.error = false;
     },
     [userActions.register.rejected]: (ui, action) => {
       ui.register.error = action.error.message;
     },
     [userActions.register.fulfilled]: (ui) => {
       ui.register.done = true;
+      ui.register.error = false;
     },
     [userActions.deleteUser.pending]: (ui) => {
       ui.form.deleting = true;
