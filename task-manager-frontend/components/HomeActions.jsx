@@ -7,7 +7,7 @@ import { useActions } from "../hooks";
 import { uiActions } from "../redux";
 import { exportData } from "../util";
 
-export default ({ totalHours }) => {
+export default ({ totalHours, log }) => {
   const { filter } = useSelector((state) => state.ui);
   const { role } = useSelector((state) => state.user);
 

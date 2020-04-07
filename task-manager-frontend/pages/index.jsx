@@ -17,7 +17,7 @@ export default () => {
   return (
     <main className={darkMode ? "bp3-dark" : null}>
       <Header>
-        <HomeActions totalHours={totalHours} />
+        <HomeActions totalHours={totalHours} log={log} />
       </Header>
 
       <H2>Work Log</H2>
