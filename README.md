@@ -11,7 +11,7 @@ PM2 is used to manage both servers both for local development and the live produ
 
 ## Running the app
 
-Both of these commands should start both servers, the UI on [http://localhost:1337](http://localhost:1337) and the API on [http://localhost:3000](http://localhost:3000)
+Both of these commands should start both servers, the UI on [http://localhost:3000](http://localhost:3000) and the API on [http://localhost:1337](http://localhost:1337)
 
 ### Local Development
 
